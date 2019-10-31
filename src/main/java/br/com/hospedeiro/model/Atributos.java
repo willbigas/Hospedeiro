@@ -2,10 +2,8 @@ package br.com.hospedeiro.model;
 
 import br.com.hospedeiro.interfaces.IBaseModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Atributos implements IBaseModel {
@@ -14,6 +12,8 @@ public class Atributos implements IBaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @ManyToMany
+    private List<Categoria> categorias;
 
 
     @Override

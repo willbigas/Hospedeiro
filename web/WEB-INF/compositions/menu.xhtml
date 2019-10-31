@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+    <h:form>
+        <p:menubar>
+            <p:menuitem value="Inicio" outcome="/index.html" icon="fa fa-user"/>
+            <p:menuitem value="Reservas" outcome="/index.xhtml" icon="fa fa-graduation-cap"/>
+            <p:menuitem value="Hospedes" outcome="/index.xhtml" icon="fa fa-graduation-cap"/>
+            <p:menuitem value="Acomodações" outcome="/index.xhtml" icon="fa fa-bar-chart"/>
+            <p:menuitem value="Fonecedores" outcome="/index.xhtml" icon="fa fa-bar-chart"/>
+
+            <f:facet name="options">
+                <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Buscar..."/>
+                <p:commandButton type="button" value="Sair" icon="fa fa-sign-out"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+
+    <p:spacer height="30"/>
+
+
+</h:body>
+
+</html>

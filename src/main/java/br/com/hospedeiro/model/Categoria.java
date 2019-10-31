@@ -13,7 +13,7 @@ public class Categoria implements IBaseModel {
     private Integer id;
     private String nome;
     private String descricao;
-    @OneToMany
+    @ManyToMany
     private List<Atributos> atributos;
 
 
