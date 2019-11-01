@@ -2,19 +2,20 @@ package br.com.hospedeiro.model;
 
 import br.com.hospedeiro.interfaces.IBaseModel;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Dependente implements IBaseModel {
+public class Localizacao implements IBaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String cpf;
-    private String nome;
-    @ManyToOne(targetEntity = Hospede.class)
-    private Hospede hospede;
+    private Integer andar;
+    private String numero;
 
     @Override
     public Integer getId() {
@@ -26,35 +27,27 @@ public class Dependente implements IBaseModel {
         this.id = id;
     }
 
-    public String getCpf() {
-        return cpf;
+    public Integer getAndar() {
+        return andar;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setAndar(Integer andar) {
+        this.andar = andar;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Hospede getHospede() {
-        return hospede;
-    }
-
-    public void setHospede(Hospede hospede) {
-        this.hospede = hospede;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Dependente that = (Dependente) o;
+        Localizacao that = (Localizacao) o;
         return Objects.equals(id, that.id);
     }
 

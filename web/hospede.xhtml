@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Página Principal</ui:define>
+
+    <ui:define name="conteudo">
+
+        <h2>Gerenciamento de Hospedes</h2>
+        <p:growl sticky="true">
+            <p:autoUpdate/>
+        </p:growl>
+
+        <h:form id="formCadastro">
+            <div class="ui-fluid">
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
+                             styleClass="ui-panelgrid-blank">
+                    <p:outputLabel for="campoCpf" value="Cpf:"/>
+                    <p:inputText
+                            id="campoCpf"
+                            required="true"
+                            requiredMessage="O campo CPF é obrigatório!"
+                            value="#{hospedeMB.hospede.cpf}"
+                            placeholder="000.000.000-00"/>
+                    <p:outputLabel for="nome" value="Nome: "/>
+                    <p:inputText
+                            id="nome"
+                            required="true"
+                            requiredMessage="Nome deve ser preenchido"
+                            value="#{hospedeMB.hospede.nome}" placeholder="Maria da silva"
+                    />
+                    <p:outputLabel for="idade" value="Idade:"/>
+                    <p:inputText id="idade"
+                                 value="#{hospedeMB.hospede.idade}"
+                                 placeholder="21"/>
+                </p:panelGrid>
+            </div>
+            <p:spacer height="10px"/>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton
+                            type="reset"
+                            update="@form"
+                            icon="fa fa-eraser"
+                            action="#{hospedeMB.limpar()}"
+                            value="Limpar"/>
+                    <p:commandButton
+                            update="formDataTable formCadastro"
+                            icon="fa fa-save"
+                            action="#{hospedeMB.salvar()}"
+                            value="Salvar"/>
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <p:spacer height="10px"/>
+
+        <h:form id="formDataTable">
+            <p:dataTable
+                    id="tableHospedes"
+                    filteredValue="#{hospedeMB.hospedesFiltro}"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                    rowsPerPageTemplate="5,10,15"
+                    paginatorPosition="bottom"
+                    rows="5"
+                    reflow="true"
+                    widgetVar="tabela-principal"
+                    value="#{hospedeMB.hospedes}"
+                    var="h">
+
+                <f:facet name="{Exporters}">
+                    <div class="tabela-exportacoes">
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="excel.png" width="24"/>
+                            <p:dataExporter type="xlsx" target="tableHospedes" fileName="hospedes"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="tableHospedes" fileName="hospedes"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="tableHospedes" fileName="hospedes"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="tableHospedes" fileName="hospedes"/>
+                        </h:commandLink>
+                    </div>
+
+                </f:facet>
+
+                <p:column
+                        headerText="CPF"
+                        filterBy="#{h.cpf}"
+                        filterMatchMode="contains"
+                        styleClass="hospede-coluna-cpf"
+                        sortBy="#{h.cpf}">
+                    <h:outputText value="#{h.cpf}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Nome"
+                        filterBy="#{h.nome}"
+                        filterMatchMode="contains"
+                        sortBy="#{h.nome}">
+                    <h:outputText value="#{h.nome}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Idade"
+                        filterBy="#{h.idade}"
+                        filterMatchMode="lte"
+                        styleClass="hospede-coluna-idade"
+                        sortBy="#{h.idade}">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer"/>
+                        </p:spinner>
+                    </f:facet>
+                    <h:outputText value="#{h.idade}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Ações"
+                        styleClass="hospede-coluna-acoes"
+                        exportable="false">
+                    <p:commandButton
+                            update="formCadastro"
+                            icon="fa fa-pencil">
+                        <f:setPropertyActionListener
+                                target="#{hospedeMB.hospede}"
+                                value="#{h}"/>
+                    </p:commandButton>
+                    <p:commandButton
+                            update="formDataTable:confirmDialog"
+                            oncomplete="PF('confirmDialog').show();"
+                            icon="fa fa-trash">
+                        <f:setPropertyActionListener
+                                target="#{hospedeMB.hospede}"
+                                value="#{h}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:confirmDialog
+                    id="confirmDialog"
+                    header="Atenção!"
+                    message="Deseja realmente excluir esta pessoa? #{hospedeMB.hospede.nome}"
+                    widgetVar="confirmDialog"
+                    showEffect="fade"
+                    hideEffect="fade"
+                    closable="false"
+                    closeOnEscape="true">
+                <p:commandButton
+                        value="Sim"
+                        icon="fa fa-check"
+                        update="@form"
+                        action="#{hospedeMB.remover}"
+                        oncomplete="PF('confirmDialog').hide()">
+                </p:commandButton>
+                <p:button
+                        value="Não"
+                        icon="fa fa-times"
+                        onclick="PF('confirmDialog').hide(); return false"/>
+            </p:confirmDialog>
+        </h:form>
+
+
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

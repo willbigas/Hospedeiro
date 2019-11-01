@@ -14,7 +14,7 @@ public class Categoria implements IBaseModel {
     private String nome;
     private String descricao;
     @ManyToMany
-    private List<Atributos> atributos;
+    private List<Atributo> atributos;
 
 
     @Override
@@ -43,11 +43,11 @@ public class Categoria implements IBaseModel {
         this.descricao = descricao;
     }
 
-    public List<Atributos> getAtributos() {
+    public List<Atributo> getAtributos() {
         return atributos;
     }
 
-    public void setAtributos(List<Atributos> atributos) {
+    public void setAtributos(List<Atributo> atributos) {
         this.atributos = atributos;
     }
 }
