@@ -19,7 +19,6 @@
             <div class="ui-fluid">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <h:outputText value="-LOCAL-" />
                     <p:outputLabel for="campoAndar" value="Andar:"/>
                     <p:inputText
                             id="campoAndar"
@@ -34,11 +33,10 @@
                             requiredMessage="Numero deve ser preenchido!"
                             value="#{acomodacaoMB.acomodacao.localizacao.numero}" placeholder="458"
                     />
-                    <h:outputLabel value="Categoria da Acomodação" />
                     <p:outputLabel for="comboCategoria" value="Categoria:"/>
                     <p:selectOneMenu id="comboCategoria" value="#{acomodacaoMB.acomodacao.categoria}">
-                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Categoria de Acomodação..."/>
-                        <f:selectItems value="#{acomodacaoMB..profissaos}" var="ca" itemLabel="#{ca.}"/>
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Tipo de Acomodação..."/>
+                        <f:selectItems value="#{acomodacaoMB.categorias}" var="ac" itemLabel="#{ac.nome}"/>
                     </p:selectOneMenu>
                 </p:panelGrid>
             </div>
@@ -49,12 +47,12 @@
                             type="reset"
                             update="@form"
                             icon="fa fa-eraser"
-                            action="#{hospedeMB.limpar()}"
+                            action="#{acomodacaoMB.limpar()}"
                             value="Limpar"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
-                            action="#{hospedeMB.salvar()}"
+                            action="#{acomodacaoMB.salvar()}"
                             value="Salvar"/>
                 </f:facet>
             </p:toolbar>
@@ -63,8 +61,8 @@
 
         <h:form id="formDataTable">
             <p:dataTable
-                    id="tableHospedes"
-                    filteredValue="#{hospedeMB.hospedesFiltro}"
+                    id="tableAcomodacao"
+                    filteredValue="#{acomodacaoMB.acomodacaosFiltro}"
                     paginator="true"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
@@ -72,63 +70,61 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{hospedeMB.hospedes}"
-                    var="h">
+                    value="#{acomodacaoMB.acomodacaos}"
+                    var="a">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="imagens" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableHospedes" fileName="hospedes"/>
+                            <p:dataExporter type="xlsx" target="tableAcomodacao" fileName="Acomodações"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="imagens" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableHospedes" fileName="hospedes"/>
+                            <p:dataExporter type="pdf" target="tableAcomodacao" fileName="Acomodações"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="imagens" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableHospedes" fileName="hospedes"/>
+                            <p:dataExporter type="csv" target="tableAcomodacao" fileName="Acomodações"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="imagens" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableHospedes" fileName="hospedes"/>
+                            <p:dataExporter type="xml" target="tableAcomodacao" fileName="Acomodações"/>
                         </h:commandLink>
                     </div>
 
                 </f:facet>
 
                 <p:column
-                        headerText="CPF"
-                        filterBy="#{h.cpf}"
+                        headerText="Categoria"
+                        filterBy="#{a.categoria.nome}"
                         filterMatchMode="contains"
-                        styleClass="hospede-coluna-cpf"
-                        sortBy="#{h.cpf}">
-                    <h:outputText value="#{h.cpf}"/>
+                        sortBy="#{a.categoria.nome}">
+                    <h:outputText value="#{a.categoria.nome}"/>
                 </p:column>
 
                 <p:column
-                        headerText="Nome"
-                        filterBy="#{h.nome}"
+                        headerText="Andar"
+                        filterBy="#{a.localizacao.andar}"
                         filterMatchMode="contains"
-                        sortBy="#{h.nome}">
-                    <h:outputText value="#{h.nome}"/>
+                        sortBy="#{a.localizacao.andar}">
+                    <h:outputText value="#{a.localizacao.andar}"/>
                 </p:column>
 
                 <p:column
-                        headerText="Idade"
-                        filterBy="#{h.idade}"
+                        headerText="Numero"
+                        filterBy="#{a.localizacao.numero}"
                         filterMatchMode="lte"
-                        styleClass="hospede-coluna-idade"
-                        sortBy="#{h.idade}">
+                        sortBy="#{a.localizacao.numero}">
                     <f:facet name="filter">
                         <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
                             <f:converter converterId="javax.faces.Integer"/>
                         </p:spinner>
                     </f:facet>
-                    <h:outputText value="#{h.idade}"/>
+                    <h:outputText value="#{a.localizacao.numero}"/>
                 </p:column>
 
                 <p:column
@@ -139,16 +135,16 @@
                             update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
-                                target="#{hospedeMB.hospede}"
-                                value="#{h}"/>
+                                target="#{acomodacaoMB.acomodacao}"
+                                value="#{a}"/>
                     </p:commandButton>
                     <p:commandButton
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
                             icon="fa fa-trash">
                         <f:setPropertyActionListener
-                                target="#{hospedeMB.hospede}"
-                                value="#{h}"/>
+                                target="#{acomodacaoMB.acomodacao}"
+                                value="#{a}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -156,7 +152,7 @@
             <p:confirmDialog
                     id="confirmDialog"
                     header="Atenção!"
-                    message="Deseja realmente excluir esta pessoa? #{hospedeMB.hospede.nome}"
+                    message="Deseja realmente excluir esta Acomodação? #{acomodacaoMB.acomodacao.localizacao.numero}"
                     widgetVar="confirmDialog"
                     showEffect="fade"
                     hideEffect="fade"
@@ -166,7 +162,7 @@
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
-                        action="#{hospedeMB.remover}"
+                        action="#{acomodacaoMB.remover}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button
@@ -175,12 +171,6 @@
                         onclick="PF('confirmDialog').hide(); return false"/>
             </p:confirmDialog>
         </h:form>
-
-
-
-
-
-
 
     </ui:define>
 

@@ -14,7 +14,7 @@ public class Localizacao implements IBaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer andar;
+    private String andar;
     private String numero;
 
     @Override
@@ -27,11 +27,11 @@ public class Localizacao implements IBaseModel {
         this.id = id;
     }
 
-    public Integer getAndar() {
+    public String getAndar() {
         return andar;
     }
 
-    public void setAndar(Integer andar) {
+    public void setAndar(String andar) {
         this.andar = andar;
     }
 

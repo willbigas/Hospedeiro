@@ -1,6 +1,7 @@
 package br.com.hospedeiro.bean;
 
 import br.com.hospedeiro.dao.AcomodacaoDao;
+import br.com.hospedeiro.dao.CategoriaDao;
 import br.com.hospedeiro.dao.HospedeDao;
 import br.com.hospedeiro.interfaces.IBaseDao;
 import br.com.hospedeiro.model.Acomodacao;
@@ -23,19 +24,22 @@ public class AcomodacaoMB implements Serializable {
     private List<Acomodacao> acomodacaos;
     private IBaseDao<Acomodacao> acomodacaoDao;
     private IBaseDao<Categoria> categoriaDao;
-    private List<Acomodacao> acomodacaoFiltros;
+    private List<Acomodacao> acomodacaosFiltro;
     private List<Categoria> categorias;
 
     @PostConstruct
     public void init() {
         acomodacao = new Acomodacao();
         acomodacaoDao = new AcomodacaoDao();
+        categoriaDao = new CategoriaDao();
         acomodacaos = new ArrayList<>();
+        categorias = new ArrayList<>();
         atualizar();
     }
 
     public void atualizar() {
         acomodacaos = acomodacaoDao.buscarTodos();
+        categorias = categoriaDao.buscarTodos();
     }
 
     public void limpar() {
@@ -49,8 +53,8 @@ public class AcomodacaoMB implements Serializable {
             Mensagem.addMensagemInfo("acomodacaoCadastroSucesso");
         } else {
             acomodacaoDao.alterar(acomodacao);
-            Mensagem.addMensagemInfo("AcomodacaoAlteradoSucesso");
-        }
+            Mensagem.addMensagemInfo("acomodacaoAlteradoSucesso");
+    }
         limpar();
         atualizar();
     }
@@ -59,7 +63,7 @@ public class AcomodacaoMB implements Serializable {
         acomodacaoDao.excluir(acomodacao);
         atualizar();
         limpar();
-        Mensagem.addMensagemInfo("AcomodacaoExclusaoSucesso");
+        Mensagem.addMensagemInfo("acomodacaoExclusaoSucesso");
     }
 
 
@@ -70,4 +74,30 @@ public class AcomodacaoMB implements Serializable {
     public void setAcomodacao(Acomodacao acomodacao) {
         this.acomodacao = acomodacao;
     }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public List<Acomodacao> getAcomodacaosFiltro() {
+        return acomodacaosFiltro;
+    }
+
+    public void setAcomodacaosFiltro(List<Acomodacao> acomodacaosFiltro) {
+        this.acomodacaosFiltro = acomodacaosFiltro;
+    }
+
+    public List<Acomodacao> getAcomodacaos() {
+        return acomodacaos;
+    }
+
+    public void setAcomodacaos(List<Acomodacao> acomodacaos) {
+        this.acomodacaos = acomodacaos;
+    }
+
+
 }
