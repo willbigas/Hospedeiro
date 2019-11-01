@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Atributos implements IBaseModel {
+public class Atributo implements IBaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

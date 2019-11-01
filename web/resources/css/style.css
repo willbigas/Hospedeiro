@@ -1,15 +1,14 @@
-.pessoa-coluna-acoes {
-    width: 80px;
+.hospede-coluna-cpf {
+    width: 150px;
+    text-align: center;
+}
+.hospede-coluna-acoes {
+    width: 150px;
     text-align: center;
 }
 
-.pessoa-coluna-idade {
-    width: 70px;
-    text-align: center;
-}
-
-.pessoa-coluna-nascimento {
-    width: 120px;
+.hospede-coluna-idade {
+    width: 60px;
     text-align: center;
 }
 
@@ -31,4 +30,8 @@
 .ui-menuitem-icon {
     text-align: center;
     margin-right: 2px;
+}
+
+.logo {
+    text-align: center;
 }
