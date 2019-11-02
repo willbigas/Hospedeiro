@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Gerenciamento de Fornecedores</ui:define>
+
+    <ui:define name="conteudo">
+
+        <h2>Gerenciamento de Fornecedores</h2>
+        <p:growl sticky="true">
+            <p:autoUpdate/>
+        </p:growl>
+
+        <h:form id="formCadastro">
+            <div class="ui-fluid">
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
+                             styleClass="ui-panelgrid-blank">
+                    <p:outputLabel for="campoCodigo" value="CPF/CNPJ:"/>
+                    <p:inputText
+                            id="campoCodigo"
+                            required="true"
+                            requiredMessage="O campo de CPF/CNPJ é obrigatório!"
+                            value="#{fornecedorMB.fornecedor.codigo}"
+                            placeholder="56.298.984/0001-93"/>
+                    <p:outputLabel for="campoRazao" value="Razão Social: "/>
+                    <p:inputText
+                            id="campoRazao"
+                            required="true"
+                            requiredMessage="Razão Social é um campo obrigatório!"
+                            value="#{fornecedorMB.fornecedor.razaoSocial}"
+                            placeholder="Raimunda e Bryan Publicidade e Propaganda Ltda"
+                    />
+                    <p:outputLabel for="campoFantasia" value="Nome Fantasia:"/>
+                    <p:inputText
+                            id="campoFantasia"
+                            value="#{fornecedorMB.fornecedor.nomeFantasia}" placeholder="Raimunda Publicidade"
+                    />
+                </p:panelGrid>
+            </div>
+            <p:spacer height="10px"/>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton
+                            type="reset"
+                            update="@form"
+                            icon="fa fa-eraser"
+                            action="#{fornecedorMB.limpar()}"
+                            value="Limpar"/>
+                    <p:commandButton
+                            update="formDataTable formCadastro"
+                            icon="fa fa-save"
+                            action="#{fornecedorMB.salvar()}"
+                            value="Salvar"/>
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+        <p:spacer height="10px"/>
+
+        <h:form id="formDataTable">
+            <p:dataTable
+                    id="tableAcomodacao"
+                    filteredValue="#{fornecedorMB.fornecedorsFiltro}"
+                    paginator="true"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                    rowsPerPageTemplate="5,10,15"
+                    paginatorPosition="bottom"
+                    rows="5"
+                    reflow="true"
+                    widgetVar="tabela-principal"
+                    value="#{fornecedorMB.fornecedors}"
+                    var="f">
+
+                <f:facet name="{Exporters}">
+                    <div class="tabela-exportacoes">
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="excel.png" width="24"/>
+                            <p:dataExporter type="xlsx" target="tableAcomodacao" fileName="Acomodações"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="tableAcomodacao" fileName="Acomodações"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="tableAcomodacao" fileName="Acomodações"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="imagens" name="xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="tableAcomodacao" fileName="Acomodações"/>
+                        </h:commandLink>
+                    </div>
+
+                </f:facet>
+
+                <p:column
+                        headerText="CPF/CNPJ"
+                        filterBy="#{f.codigo}"
+                        filterMatchMode="contains"
+                        sortBy="#{f.codigo}">
+                    <h:outputText value="#{f.codigo}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Razão Social"
+                        filterBy="#{f.razaoSocial}"
+                        filterMatchMode="contains"
+                        sortBy="#{f.razaoSocial}">
+                    <h:outputText value="#{f.razaoSocial}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Nome Fantasia"
+                        filterBy="#{f.nomeFantasia}"
+                        filterMatchMode="contains"
+                        sortBy="#{f.nomeFantasia}">
+                    <h:outputText value="#{f.nomeFantasia}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Ações"
+                        styleClass="hospede-coluna-acoes"
+                        exportable="false">
+                    <p:commandButton
+                            update="formCadastro"
+                            icon="fa fa-pencil">
+                        <f:setPropertyActionListener
+                                target="#{fornecedorMB.fornecedor}"
+                                value="#{f}"/>
+                    </p:commandButton>
+                    <p:commandButton
+                            update="formDataTable:confirmDialog"
+                            oncomplete="PF('confirmDialog').show();"
+                            icon="fa fa-trash">
+                        <f:setPropertyActionListener
+                                target="#{fornecedorMB.fornecedor}"
+                                value="#{f}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:confirmDialog
+                    id="confirmDialog"
+                    header="Atenção!"
+                    message="Deseja realmente excluir esta Acomodação? #{fornecedorMB.fornecedor.razaoSocial}"
+                    icon="pi pi-exclamation-triangle"
+                    widgetVar="confirmDialog"
+                    showEffect="fade"
+                    hideEffect="fade"
+                    closable="false"
+                    closeOnEscape="true">
+                <p:commandButton
+                        value="Sim"
+                        icon="fa fa-check"
+                        update="@form"
+                        action="#{fornecedorMB.remover}"
+                        oncomplete="PF('confirmDialog').hide()">
+                </p:commandButton>
+                <p:button
+                        value="Não"
+                        icon="fa fa-times"
+                        onclick="PF('confirmDialog').hide(); return false"/>
+            </p:confirmDialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
