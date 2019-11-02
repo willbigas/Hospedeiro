@@ -10,7 +10,7 @@ public interface IBaseDao<T extends IBaseModel> {
 
     public abstract void excluir(T entity);
 
-    public abstract T buscarPorid(Long id);
+    public abstract T buscarPorid(Integer id);
 
     public abstract List<T> buscarTodos();
 

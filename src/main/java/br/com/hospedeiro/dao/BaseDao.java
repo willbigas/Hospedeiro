@@ -71,8 +71,9 @@ public abstract class BaseDao<T extends IBaseModel> implements IBaseDao<T> {
         }
     }
 
+
     @Override
-    public T buscarPorid(Long id) {
+    public T buscarPorid(Integer id) {
         EntityManager manager = JpaUtil.getEntityManager();
         try {
             T resultado = manager.find(persistenceClass, id);

@@ -4,6 +4,7 @@ import br.com.hospedeiro.interfaces.IBaseModel;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Atributo implements IBaseModel {
@@ -33,5 +34,18 @@ public class Atributo implements IBaseModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Atributo atributo = (Atributo) o;
+        return Objects.equals(id, atributo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

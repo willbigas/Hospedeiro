@@ -8,6 +8,7 @@ import br.com.hospedeiro.model.Acomodacao;
 import br.com.hospedeiro.model.Categoria;
 import br.com.hospedeiro.model.Hospede;
 import br.com.hospedeiro.model.Localizacao;
+import br.com.hospedeiro.model.enums.SituacaoAcomodacao;
 import br.com.hospedeiro.util.Mensagem;
 
 import javax.annotation.PostConstruct;
@@ -48,14 +49,17 @@ public class AcomodacaoMB implements Serializable {
 
     public void limpar() {
         acomodacao = new Acomodacao();
+        acomodacao.setLocalizacao(new Localizacao());
     }
 
 
     public void salvar() {
         if (acomodacao.getId() == null) {
+            acomodacao.setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
             acomodacaoDao.salvar(acomodacao);
             Mensagem.addMensagemInfo("acomodacaoCadastroSucesso");
         } else {
+            acomodacao.setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
             acomodacaoDao.alterar(acomodacao);
             Mensagem.addMensagemInfo("acomodacaoAlteradoSucesso");
     }

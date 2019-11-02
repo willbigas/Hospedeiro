@@ -5,6 +5,7 @@ import br.com.hospedeiro.model.enums.SituacaoAcomodacao;
 
 import javax.ejb.Local;
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Acomodacao implements IBaseModel {
@@ -53,5 +54,18 @@ public class Acomodacao implements IBaseModel {
 
     public void setLocalizacao(Localizacao localizacao) {
         this.localizacao = localizacao;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Acomodacao that = (Acomodacao) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -4,6 +4,7 @@ import br.com.hospedeiro.interfaces.IBaseModel;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Categoria implements IBaseModel {
@@ -49,5 +50,18 @@ public class Categoria implements IBaseModel {
 
     public void setAtributos(List<Atributo> atributos) {
         this.atributos = atributos;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Categoria categoria = (Categoria) o;
+        return Objects.equals(id, categoria.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
