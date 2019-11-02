@@ -17,6 +17,7 @@ public class Localizacao implements IBaseModel {
     private String andar;
     private String numero;
 
+
     @Override
     public Integer getId() {
         return id;

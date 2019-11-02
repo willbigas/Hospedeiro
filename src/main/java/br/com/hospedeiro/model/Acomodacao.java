@@ -12,7 +12,7 @@ public class Acomodacao implements IBaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Localizacao localizacao;
     @ManyToOne
     private Categoria categoria;

@@ -7,6 +7,7 @@ import br.com.hospedeiro.interfaces.IBaseDao;
 import br.com.hospedeiro.model.Acomodacao;
 import br.com.hospedeiro.model.Categoria;
 import br.com.hospedeiro.model.Hospede;
+import br.com.hospedeiro.model.Localizacao;
 import br.com.hospedeiro.util.Mensagem;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +21,8 @@ import java.util.List;
 @ViewScoped
 public class AcomodacaoMB implements Serializable {
 
+
+
     private Acomodacao acomodacao;
     private List<Acomodacao> acomodacaos;
     private IBaseDao<Acomodacao> acomodacaoDao;
@@ -30,6 +33,7 @@ public class AcomodacaoMB implements Serializable {
     @PostConstruct
     public void init() {
         acomodacao = new Acomodacao();
+        acomodacao.setLocalizacao(new Localizacao());
         acomodacaoDao = new AcomodacaoDao();
         categoriaDao = new CategoriaDao();
         acomodacaos = new ArrayList<>();
