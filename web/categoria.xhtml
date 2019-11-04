@@ -40,40 +40,13 @@
                     />
                     <br />
                     <h:outputText id="display" />
-                    <p:outputLabel for="campoAtributo" value="Atributo:"/>
-                    <p:inputText
-                            id="campoAtributo"
-                            value="#{categoriaMB.atributo}"
-                            placeholder="Suite, Presidencial, Comum"/>
+                    <p:outputLabel for="campoAtributos" value="Atributos:"/>
+                    <p:selectManyMenu id="campoAtributos"  value="#{categoriaMB.categoria.atributos}">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Categoria"/>
+                        <f:selectItems var="cat" value="#{categoriaMB.atributos}" itemLabel="#{cat.nome}"/>
+                    </p:selectManyMenu>
                 </p:panelGrid>
-
             </div>
-
-
-            <p:spacer height="10px"/>
-            <p:toolbar>
-                <f:facet name="left">
-                    <p:commandButton
-                            update="dataAtributos"
-                            icon="fa fa-minus"
-                            action="#{categoriaMB.limpar()}"
-                    />
-                    <p:commandButton
-                            update="dataAtributos"
-                            icon="fa fa-plus"
-                            action="#{categoriaMB.adicionarAtributo()}"
-                    />
-                </f:facet>
-            </p:toolbar>
-            <p:spacer height="10px"/>
-
-
-            <p:dataList id="dataAtributos" value="#{categoriaMB.categoria.atributos}" var="at" type="ordered">
-                <f:facet name="header">
-                    Atributos
-                </f:facet>
-                #{at.id} - #{at.nome}
-            </p:dataList>
 
             <p:spacer height="10px"/>
             <p:toolbar>

@@ -24,10 +24,11 @@ public class CategoriaMB implements Serializable {
 
     private Categoria categoria;
     private List<Categoria> categorias;
+    private List<Atributo> atributos;
     private IBaseDao<Categoria> categoriaDao;
     private IBaseDao<Atributo> atributoDao;
     private List<Categoria> categoriasFiltro;
-    private String atributo;
+    private List<Atributo> atributosSelecionados;
 
     @PostConstruct
     public void init() {
@@ -40,10 +41,12 @@ public class CategoriaMB implements Serializable {
 
     public void atualizar() {
         categorias = categoriaDao.buscarTodos();
+        atributos = atributoDao.buscarTodos();
     }
 
     public void limpar() {
         categoria = new Categoria();
+        atributos = atributoDao.buscarTodos();
     }
 
 
@@ -61,21 +64,11 @@ public class CategoriaMB implements Serializable {
 
     public void remover() {
         categoriaDao.excluir(categoria);
+        Mensagem.addMensagemInfo("categoriaExclusaoSucesso");
         atualizar();
         limpar();
-        Mensagem.addMensagemInfo("categoriaExclusaoSucesso");
     }
 
-
-    public void adicionarAtributo() {
-        List<Atributo> atributosDaCategoria = this.categoria.getAtributos();
-        Atributo novoAtributo = new Atributo();
-        novoAtributo.setNome(atributo);
-        atributoDao.salvar(novoAtributo);
-        this.categoria.getAtributos().add(novoAtributo);
-
-
-    }
 
     public Categoria getCategoria() {
         return categoria;
@@ -102,11 +95,19 @@ public class CategoriaMB implements Serializable {
     }
 
 
-    public String getAtributo() {
-        return atributo;
+    public List<Atributo> getAtributos() {
+        return atributos;
     }
 
-    public void setAtributo(String atributo) {
-        this.atributo = atributo;
+    public void setAtributos(List<Atributo> atributos) {
+        this.atributos = atributos;
+    }
+
+    public List<Atributo> getAtributosSelecionados() {
+        return atributosSelecionados;
+    }
+
+    public void setAtributosSelecionados(List<Atributo> atributosSelecionados) {
+        this.atributosSelecionados = atributosSelecionados;
     }
 }
