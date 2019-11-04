@@ -42,6 +42,7 @@
                     <h:outputText id="display" />
                     <p:outputLabel for="campoAtributos" value="Atributos:"/>
                     <p:selectManyMenu id="campoAtributos"  value="#{categoriaMB.categoria.atributos}">
+                        <f:attribute name="collectionType" value="java.util.ArrayList" />
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Categoria"/>
                         <f:selectItems var="cat" value="#{categoriaMB.atributos}" itemLabel="#{cat.nome}"/>
                     </p:selectManyMenu>

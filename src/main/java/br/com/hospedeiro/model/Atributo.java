@@ -13,7 +13,7 @@ public class Atributo implements IBaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Categoria> categorias;
 
 

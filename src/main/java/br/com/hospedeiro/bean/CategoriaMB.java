@@ -46,7 +46,6 @@ public class CategoriaMB implements Serializable {
 
     public void limpar() {
         categoria = new Categoria();
-        atributos = atributoDao.buscarTodos();
     }
 
 
