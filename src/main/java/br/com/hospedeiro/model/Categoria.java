@@ -14,7 +14,7 @@ public class Categoria implements IBaseModel {
     private Integer id;
     private String nome;
     private String descricao;
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Atributo> atributos;
 
 

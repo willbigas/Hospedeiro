@@ -61,7 +61,7 @@ public class FornecedorMB implements Serializable {
         fornecedorDao.excluir(fornecedor);
         atualizar();
         limpar();
-        Mensagem.addMensagemInfo("acomodacaoExclusaoSucesso");
+        Mensagem.addMensagemInfo("fornecedorExclusaoSucesso");
     }
 
     public Fornecedor getFornecedor() {

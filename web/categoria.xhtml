@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Gerenciamento de Fornecedores</ui:define>
+    <ui:define name="titulo">Gerenciamento de Tipos de Acomodações</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Fornecedores</h2>
+        <h2>Gerenciamento de Tipos de Acomodações</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -19,28 +19,62 @@
             <div class="ui-fluid">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoCodigo" value="CPF/CNPJ:"/>
+                    <p:outputLabel for="campoNome" value="Nome:"/>
                     <p:inputText
-                            id="campoCodigo"
+                            id="campoNome"
                             required="true"
-                            requiredMessage="O campo de CPF/CNPJ é obrigatório!"
-                            value="#{fornecedorMB.fornecedor.codigo}"
-                            placeholder="56.298.984/0001-93"/>
-                    <p:outputLabel for="campoRazao" value="Razão Social: "/>
-                    <p:inputText
-                            id="campoRazao"
+                            requiredMessage="O campo Nome é obrigatório!"
+                            value="#{categoriaMB.categoria.nome}"
+                            placeholder="Suite, Presidencial, Comum"/>
+                    <p:outputLabel for="campoDescricao" value="Descrição: "/>
+                    <p:inputTextarea
+                            id="campoDescricao"
+                            rows="10"
+                            cols="50"
                             required="true"
-                            requiredMessage="Razão Social é um campo obrigatório!"
-                            value="#{fornecedorMB.fornecedor.razaoSocial}"
-                            placeholder="Raimunda e Bryan Publicidade e Propaganda Ltda"
+                            maxlength="230"
+                            counterTemplate="{0} characters remaining."
+                            autoResize="false"
+                            requiredMessage="Numero deve ser preenchido!"
+                            value="#{categoriaMB.categoria.descricao}" placeholder="Uma breve descrição da categoria aqui..."
                     />
-                    <p:outputLabel for="campoFantasia" value="Nome Fantasia:"/>
+                    <br />
+                    <h:outputText id="display" />
+                    <p:outputLabel for="campoAtributo" value="Atributo:"/>
                     <p:inputText
-                            id="campoFantasia"
-                            value="#{fornecedorMB.fornecedor.nomeFantasia}" placeholder="Raimunda Publicidade"
-                    />
+                            id="campoAtributo"
+                            value="#{categoriaMB.atributo}"
+                            placeholder="Suite, Presidencial, Comum"/>
                 </p:panelGrid>
+
             </div>
+
+
+            <p:spacer height="10px"/>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton
+                            update="dataAtributos"
+                            icon="fa fa-minus"
+                            action="#{categoriaMB.limpar()}"
+                    />
+                    <p:commandButton
+                            update="dataAtributos"
+                            icon="fa fa-plus"
+                            action="#{categoriaMB.adicionarAtributo()}"
+                    />
+                </f:facet>
+            </p:toolbar>
+            <p:spacer height="10px"/>
+
+
+            <p:dataList id="dataAtributos" value="#{categoriaMB.categoria.atributos}" var="at" type="ordered">
+                <f:facet name="header">
+                    Atributos
+                </f:facet>
+                #{at.id} - #{at.nome}
+            </p:dataList>
+
             <p:spacer height="10px"/>
             <p:toolbar>
                 <f:facet name="left">
@@ -48,22 +82,24 @@
                             type="reset"
                             update="@form"
                             icon="fa fa-eraser"
-                            action="#{fornecedorMB.limpar()}"
+                            action="#{categoriaMB.limpar()}"
                             value="Limpar"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
-                            action="#{fornecedorMB.salvar()}"
+                            action="#{categoriaMB.salvar()}"
                             value="Salvar"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
         <p:spacer height="10px"/>
 
+
+
         <h:form id="formDataTable">
             <p:dataTable
-                    id="tableAcomodacao"
-                    filteredValue="#{fornecedorMB.fornecedorsFiltro}"
+                    id="tableCategoria"
+                    filteredValue="#{categoriaMB.categoriasFiltro}"
                     paginator="true"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
@@ -71,57 +107,50 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{fornecedorMB.fornecedors}"
-                    var="f">
+                    value="#{categoriaMB.categorias}"
+                    var="c">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="img" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableAcomodacao" fileName="Fornecedores"/>
+                            <p:dataExporter type="xlsx" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableAcomodacao" fileName="Fornecedores"/>
+                            <p:dataExporter type="pdf" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableAcomodacao" fileName="Fornecedores"/>
+                            <p:dataExporter type="csv" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableAcomodacao" fileName="Fornecedores"/>
+                            <p:dataExporter type="xml" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
                         </h:commandLink>
                     </div>
 
                 </f:facet>
 
                 <p:column
-                        headerText="CPF/CNPJ"
-                        filterBy="#{f.codigo}"
+                        headerText="Nome"
+                        filterBy="#{c.nome}"
                         filterMatchMode="contains"
-                        sortBy="#{f.codigo}">
-                    <h:outputText value="#{f.codigo}"/>
+                        sortBy="#{c.nome}">
+                    <h:outputText value="#{c.nome}"/>
                 </p:column>
 
                 <p:column
-                        headerText="Razão Social"
-                        filterBy="#{f.razaoSocial}"
+                        headerText="Descrição"
+                        filterBy="#{c.descricao}"
                         filterMatchMode="contains"
-                        sortBy="#{f.razaoSocial}">
-                    <h:outputText value="#{f.razaoSocial}"/>
+                        sortBy="#{c.descricao}">
+                    <h:outputText value="#{c.descricao}"/>
                 </p:column>
 
-                <p:column
-                        headerText="Nome Fantasia"
-                        filterBy="#{f.nomeFantasia}"
-                        filterMatchMode="contains"
-                        sortBy="#{f.nomeFantasia}">
-                    <h:outputText value="#{f.nomeFantasia}"/>
-                </p:column>
 
                 <p:column
                         headerText="Ações"
@@ -131,16 +160,16 @@
                             update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
-                                target="#{fornecedorMB.fornecedor}"
-                                value="#{f}"/>
+                                target="#{categoriaMB.categoria}"
+                                value="#{c}"/>
                     </p:commandButton>
                     <p:commandButton
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
                             icon="fa fa-trash">
                         <f:setPropertyActionListener
-                                target="#{fornecedorMB.fornecedor}"
-                                value="#{f}"/>
+                                target="#{categoriaMB.categoria}"
+                                value="#{c}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -148,8 +177,7 @@
             <p:confirmDialog
                     id="confirmDialog"
                     header="Atenção!"
-                    message="Deseja realmente excluir esta Acomodação? #{fornecedorMB.fornecedor.razaoSocial}"
-                    icon="pi pi-exclamation-triangle"
+                    message="Deseja realmente excluir este Tipo de Acomodação? #{categoriaMB.categoria.nome}"
                     widgetVar="confirmDialog"
                     showEffect="fade"
                     hideEffect="fade"
@@ -159,7 +187,7 @@
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
-                        action="#{fornecedorMB.remover}"
+                        action="#{categoriaMB.remover}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button
