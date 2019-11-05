@@ -1,14 +1,8 @@
 package br.com.hospedeiro.bean;
 
-import br.com.hospedeiro.dao.AcomodacaoDao;
-import br.com.hospedeiro.dao.CategoriaDao;
 import br.com.hospedeiro.dao.FornecedorDao;
 import br.com.hospedeiro.interfaces.IBaseDao;
-import br.com.hospedeiro.model.Acomodacao;
-import br.com.hospedeiro.model.Categoria;
 import br.com.hospedeiro.model.Fornecedor;
-import br.com.hospedeiro.model.Localizacao;
-import br.com.hospedeiro.model.enums.SituacaoAcomodacao;
 import br.com.hospedeiro.util.Mensagem;
 
 import javax.annotation.PostConstruct;

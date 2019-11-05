@@ -3,7 +3,6 @@ package br.com.hospedeiro.model;
 import br.com.hospedeiro.interfaces.IBaseModel;
 import br.com.hospedeiro.model.enums.SituacaoAcomodacao;
 
-import javax.ejb.Local;
 import javax.persistence.*;
 import java.util.Objects;
 

@@ -6,37 +6,64 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Gerenciamento de Hospedes</ui:define>
+    <ui:define name="titulo">Hospedeiro - Gerenciamento de Reservas</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Hospedes</h2>
+        <h2>Gerenciamento de Reservas</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
 
         <h:form id="formCadastro">
             <div class="ui-fluid">
-                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
+                <p:panelGrid columns="4" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-5, ui-lg-1 , ui-lg-5"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoCpf" value="Cpf:"/>
-                    <p:inputText
-                            id="campoCpf"
-                            required="true"
-                            requiredMessage="O campo CPF é obrigatório!"
-                            value="#{hospedeMB.hospede.cpf}"
-                            placeholder="000.000.000-00"/>
-                    <p:outputLabel for="nome" value="Nome: "/>
-                    <p:inputText
-                            id="nome"
-                            required="true"
-                            requiredMessage="Nome deve ser preenchido"
-                            value="#{hospedeMB.hospede.nome}" placeholder="Maria da silva"
-                    />
-                    <p:outputLabel for="idade" value="Idade:"/>
-                    <p:inputText id="idade"
-                                 value="#{hospedeMB.hospede.idade}"
-                                 placeholder="21"/>
+                    <p:outputLabel for="acomodacao" value="Acomodação:"/>
+                    <p:selectOneMenu id="acomodacao" value="#{reservaMB.reserva.acomodacao}">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Acomodação"/>
+                        <f:selectItems value="#{reservaMB.acomodacaos}" var="ac" itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="hospede" value="Acomodação:"/>
+                    <p:selectOneMenu id="hospede" value="#{reservaMB.reserva.hospede}">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione um Hospede"/>
+                        <f:selectItems value="#{reservaMB.hospedes}" var="h" itemLabel="[#{h.cpf}] - [#{h.nome}]"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="dataEntrada" value="Data de entrada:"/>
+                    <p:calendar id="dataEntrada"
+                                yearRange="c-100:c+0"
+                                widgetVar="calWidget"
+                                maxdate="calWidget.today()"
+                                pattern="dd/MM/yyyy"
+                                navigator="true"
+                                timeZone="#{initParam.timezone}"
+                                mask="true"
+                                locale="pt_BR"
+                                required="true"
+                                requiredMessage="Data de Entrada deve ser preenchida"
+                                converterMessage="Data no formato invalido. Use: dd/mm/aaaa"
+                                value="#{reservaMB.reserva.dataEntrada}"
+                                placeholder="dd/mm/aaaa">
+                    </p:calendar>
+                    <p:outputLabel for="dataSaida" value="Data de saida:"/>
+                    <p:calendar id="dataSaida"
+                                yearRange="c+0:c+100"
+                                widgetVar="calWidget"
+                                pattern="dd/MM/yyyy"
+                                navigator="true"
+                                timeZone="#{initParam.timezone}"
+                                mask="true"
+                                locale="pt_BR"
+                                required="true"
+                                requiredMessage="Data de Entrada deve ser preenchida"
+                                converterMessage="Data no formato invalido. Use: dd/mm/aaaa"
+                                value="#{reservaMB.reserva.dataSaida}"
+                                placeholder="dd/mm/aaaa">
+                    </p:calendar>
+
+
                 </p:panelGrid>
             </div>
             <p:spacer height="10px"/>
