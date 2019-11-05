@@ -34,9 +34,7 @@
                     <p:outputLabel for="dataEntrada" value="Data de entrada:"/>
                     <p:calendar id="dataEntrada"
                                 yearRange="c-100:c+0"
-                                widgetVar="calWidget"
-                                maxdate="calWidget.today()"
-                                pattern="dd/MM/yyyy"
+                                pattern="dd/MM/yyyy HH:mm"
                                 navigator="true"
                                 timeZone="#{initParam.timezone}"
                                 mask="true"
@@ -50,8 +48,7 @@
                     <p:outputLabel for="dataSaida" value="Data de saida:"/>
                     <p:calendar id="dataSaida"
                                 yearRange="c+0:c+100"
-                                widgetVar="calWidget"
-                                pattern="dd/MM/yyyy"
+                                pattern="dd/MM/yyyy HH:mm"
                                 navigator="true"
                                 timeZone="#{initParam.timezone}"
                                 mask="true"
@@ -73,12 +70,12 @@
                             type="reset"
                             update="@form"
                             icon="fa fa-eraser"
-                            action="#{hospedeMB.limpar()}"
+                            action="#{reservaMB.limpar()}"
                             value="Limpar"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
-                            action="#{hospedeMB.salvar()}"
+                            action="#{reservaMB.salvar()}"
                             value="Salvar"/>
                 </f:facet>
             </p:toolbar>
@@ -87,8 +84,8 @@
 
         <h:form id="formDataTable">
             <p:dataTable
-                    id="tableHospedes"
-                    filteredValue="#{hospedeMB.hospedesFiltro}"
+                    id="tableReservas"
+                    filteredValue="#{reservaMB.reservasFiltro}"
                     paginator="true"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
@@ -96,63 +93,66 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{hospedeMB.hospedes}"
-                    var="h">
+                    value="#{reservaMB.reservas}"
+                    var="r">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="img" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableHospedes" fileName="Hospedes"/>
+                            <p:dataExporter type="xlsx" target="tableReservas" fileName="Reservas"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableHospedes" fileName="Hospedes"/>
+                            <p:dataExporter type="pdf" target="tableReservas" fileName="Reservas"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableHospedes" fileName="Hospedes"/>
+                            <p:dataExporter type="csv" target="tableReservas" fileName="Reservas"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableHospedes" fileName="Hospedes"/>
+                            <p:dataExporter type="xml" target="tableReservas" fileName="Reservas"/>
                         </h:commandLink>
                     </div>
 
                 </f:facet>
 
                 <p:column
-                        headerText="CPF"
-                        filterBy="#{h.cpf}"
+                        headerText="Hospede"
+                        styleClass="reserva-coluna-cp"
+                        filterBy="#{r.hospede.nome}"
                         filterMatchMode="contains"
-                        styleClass="hospede-coluna-cpf"
-                        sortBy="#{h.cpf}">
-                    <h:outputText value="#{h.cpf}"/>
+                        sortBy="#{r.hospede.nome}">
+                    <h:outputText value="#{r.hospede.nome}"/>
                 </p:column>
 
                 <p:column
-                        headerText="Nome"
-                        filterBy="#{h.nome}"
+                        headerText="Nº Acomodação"
+                        styleClass="reserva-coluna-acomodacao"
+                        filterBy="#{r.acomodacao.localizacao.numero}"
                         filterMatchMode="contains"
-                        sortBy="#{h.nome}">
-                    <h:outputText value="#{h.nome}"/>
+                        sortBy="#{r.acomodacao.localizacao.numero}">
+                    <h:outputText value="#{r.acomodacao.localizacao.numero}"/>
                 </p:column>
 
                 <p:column
-                        headerText="Idade"
-                        filterBy="#{h.idade}"
-                        filterMatchMode="lte"
-                        styleClass="hospede-coluna-idade"
-                        sortBy="#{h.idade}">
-                    <f:facet name="filter">
-                        <p:spinner onchange="PF('tabela-principal').filter()" styleClass="year-spinner custom-filter">
-                            <f:converter converterId="javax.faces.Integer"/>
-                        </p:spinner>
-                    </f:facet>
-                    <h:outputText value="#{h.idade}"/>
+                        headerText="Data Inicio"
+                        sortBy="#{r.dataEntrada}">
+                    <h:outputText value="#{r.dataEntrada}">
+                        <f:convertDateTime pattern="dd/MM/yyy hh:mm" timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column
+                        headerText="Data Final"
+                        sortBy="#{r.dataSaida}">
+                    <h:outputText value="#{r.dataSaida}">
+                        <f:convertDateTime pattern="dd/MM/yyy hh:mm" timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column
@@ -163,16 +163,16 @@
                             update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
-                                target="#{hospedeMB.hospede}"
-                                value="#{h}"/>
+                                target="#{reservaMB.reserva}"
+                                value="#{r}"/>
                     </p:commandButton>
                     <p:commandButton
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
                             icon="fa fa-trash">
                         <f:setPropertyActionListener
-                                target="#{hospedeMB.hospede}"
-                                value="#{h}"/>
+                                target="#{reservaMB.reserva}"
+                                value="#{r}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -180,7 +180,7 @@
             <p:confirmDialog
                     id="confirmDialog"
                     header="Atenção!"
-                    message="Deseja realmente excluir esta pessoa? #{hospedeMB.hospede.nome}"
+                    message="Deseja realmente excluir esta reserva? #{reservaMB.reserva.acomodacao.localizacao.numero}"
                     widgetVar="confirmDialog"
                     showEffect="fade"
                     hideEffect="fade"
@@ -190,7 +190,7 @@
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
-                        action="#{hospedeMB.remover}"
+                        action="#{reservaMB.remover}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button

@@ -99,20 +99,13 @@
                 </f:facet>
 
                 <p:column
-                        headerText="Categoria"
-                        filterBy="#{a.categoria.nome}"
-                        filterMatchMode="contains"
-                        sortBy="#{a.categoria.nome}">
-                    <h:outputText value="#{a.categoria.nome}"/>
-                </p:column>
-
-                <p:column
                         headerText="Andar"
                         filterBy="#{a.localizacao.andar}"
                         filterMatchMode="contains"
                         sortBy="#{a.localizacao.andar}">
                     <h:outputText value="#{a.localizacao.andar}"/>
                 </p:column>
+
 
                 <p:column
                         headerText="Numero"
@@ -125,6 +118,14 @@
                         </p:spinner>
                     </f:facet>
                     <h:outputText value="#{a.localizacao.numero}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Categoria"
+                        filterBy="#{a.categoria.nome}"
+                        filterMatchMode="contains"
+                        sortBy="#{a.categoria.nome}">
+                    <h:outputText value="#{a.categoria.nome}"/>
                 </p:column>
 
                 <p:column

@@ -1,3 +1,5 @@
+
+/** Colunas da pagina de Hospedes **/
 .hospede-coluna-cpf {
     width: 150px;
     text-align: center;
@@ -11,6 +13,20 @@
     width: 60px;
     text-align: center;
 }
+
+/** Colunas da pagina de reservas **/
+
+.reserva-coluna-cp {
+    width: 400px;
+    text-align: center;
+}
+
+.reserva-coluna-acomodacao {
+    width: 140px;
+    text-align: center;
+}
+
+
 
 .ui-filter-column .ui-column-customfilter .custom-filter {
     width: 100%;
