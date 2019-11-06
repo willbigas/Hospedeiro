@@ -14,7 +14,7 @@ public class Acomodacao implements IBaseModel {
     private Integer id;
     @OneToOne(cascade = CascadeType.ALL)
     private Localizacao localizacao;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Categoria categoria;
     @Enumerated(EnumType.STRING)
     private SituacaoAcomodacao situacaoAcomodacao;

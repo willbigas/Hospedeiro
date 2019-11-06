@@ -24,10 +24,11 @@ public class AcomodacaoMB implements Serializable {
 
     private Acomodacao acomodacao;
     private List<Acomodacao> acomodacaos;
-    private IBaseDao<Acomodacao> acomodacaoDao;
-    private IBaseDao<Categoria> categoriaDao;
     private List<Acomodacao> acomodacaosFiltro;
     private List<Categoria> categorias;
+    private IBaseDao<Acomodacao> acomodacaoDao;
+    private IBaseDao<Categoria> categoriaDao;
+
 
     @PostConstruct
     public void init() {

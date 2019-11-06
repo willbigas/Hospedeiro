@@ -15,6 +15,13 @@
             <p:autoUpdate/>
         </p:growl>
 
+
+        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+            <h4>Categorias x Acomodações</h4>
+            <p:outputLabel></p:outputLabel>
+            <p:pieChart model="#{dashboardMB.pieModel}" style="width: 100%; height: 450px;"/>
+        </p:panelGrid>
+
     </ui:define>
 
 </ui:composition>

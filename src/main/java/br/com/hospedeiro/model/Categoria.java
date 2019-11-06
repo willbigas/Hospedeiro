@@ -1,6 +1,8 @@
 package br.com.hospedeiro.model;
 
 import br.com.hospedeiro.interfaces.IBaseModel;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +17,11 @@ public class Categoria implements IBaseModel {
     private String nome;
     private String descricao;
     @ManyToMany(fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Atributo> atributos;
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
+    private List<Acomodacao> acomodacaos;
 
 
     @Override
@@ -50,6 +56,14 @@ public class Categoria implements IBaseModel {
 
     public void setAtributos(List<Atributo> atributos) {
         this.atributos = atributos;
+    }
+
+    public List<Acomodacao> getAcomodacaos() {
+        return acomodacaos;
+    }
+
+    public void setAcomodacaos(List<Acomodacao> acomodacaos) {
+        this.acomodacaos = acomodacaos;
     }
 
     @Override
