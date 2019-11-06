@@ -12,7 +12,11 @@
     <h:form>
         <p:menubar>
             <p:menuitem value="Inicio" outcome="/index.html" icon="fa fa-home"/>
-            <p:menuitem value="Reservas" outcome="/reserva.xhtml" icon="fa fa-calendar"/>
+            <p:submenu label="Reservas" icon="fa fa-calendar">
+                <p:menuitem value="Listar" outcome="/reserva.xhtml" icon="fa fa-th-list"/>
+                <p:menuitem value="Checkin" outcome="/reserva.xhtml" icon="fa fa-thumbs-o-up"/>
+                <p:menuitem value="Checkout" outcome="/reserva.xhtml" icon="fa fa-thumbs-o-down"/>
+        </p:submenu>
             <p:menuitem value="Hospedes" outcome="/hospede.xhtml" icon="fa fa-users"/>
             <p:submenu label="Acomodações" icon="fa fa-bed">
                 <p:menuitem value="Cadastro" outcome="/acomodacao.xhtml" icon="fa fa-plus"/>

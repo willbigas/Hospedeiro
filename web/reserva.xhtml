@@ -156,6 +156,16 @@
                 </p:column>
 
                 <p:column
+                        headerText="Valor total"
+                        filterBy="#{r.valorTotal}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.valorTotal}">
+                    <h:outputText value="#{r.valorTotal}">
+                        <f:convertNumber pattern="#0.00" locale="pt_BR"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column
                         headerText="Ações"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">

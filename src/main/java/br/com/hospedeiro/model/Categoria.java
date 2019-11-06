@@ -22,6 +22,9 @@ public class Categoria implements IBaseModel {
     @Fetch(value = FetchMode.SUBSELECT)
     @OneToMany(mappedBy = "categoria", fetch = FetchType.EAGER)
     private List<Acomodacao> acomodacaos;
+    @Column(columnDefinition = "Decimal (10,2)")
+    private Double valorDiaria;
+
 
 
     @Override
@@ -64,6 +67,15 @@ public class Categoria implements IBaseModel {
 
     public void setAcomodacaos(List<Acomodacao> acomodacaos) {
         this.acomodacaos = acomodacaos;
+    }
+
+
+    public Double getValorDiaria() {
+        return valorDiaria;
+    }
+
+    public void setValorDiaria(Double valorDiaria) {
+        this.valorDiaria = valorDiaria;
     }
 
     @Override

@@ -17,10 +17,13 @@ public class Reserva implements IBaseModel {
     private Date dataEntrada;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataSaida;
+    private Integer diasEmReserva;
     @OneToOne
     private Acomodacao acomodacao;
     @OneToOne
     private Hospede hospede;
+    @Column(columnDefinition = "Decimal (10,2)")
+    private Double valorAdicional;
     @Column(columnDefinition = "Decimal (10,2)")
     private Double valorTotal;
 
@@ -73,6 +76,22 @@ public class Reserva implements IBaseModel {
 
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public Double getValorAdicional() {
+        return valorAdicional;
+    }
+
+    public void setValorAdicional(Double valorAdicional) {
+        this.valorAdicional = valorAdicional;
+    }
+
+    public Integer getDiasEmReserva() {
+        return diasEmReserva;
+    }
+
+    public void setDiasEmReserva(Integer diasEmReserva) {
+        this.diasEmReserva = diasEmReserva;
     }
 
     @Override

@@ -21,11 +21,21 @@
                              styleClass="ui-panelgrid-blank">
                     <p:outputLabel for="campoNome" value="Nome:"/>
                     <p:inputText
-                            id="campoNome"
+                        id="campoNome"
+                        required="true"
+                        requiredMessage="O campo Nome é obrigatório!"
+                        value="#{categoriaMB.categoria.nome}"
+                        placeholder="Suite, Presidencial, Comum"/>
+                    <p:outputLabel for="campoValor" value="Valor Diaria: "/>
+                    <p:inputNumber
+                            id="campoValor"
                             required="true"
-                            requiredMessage="O campo Nome é obrigatório!"
-                            value="#{categoriaMB.categoria.nome}"
-                            placeholder="Suite, Presidencial, Comum"/>
+                            requiredMessage="O campo Valor da diaria é obrigatório!"
+                            decimalSeparator=","
+                            thousandSeparator="."
+                            symbol="R$ "
+                            value="#{categoriaMB.categoria.valorDiaria}"
+                            placeholder="120,99"/>
                     <p:outputLabel for="campoDescricao" value="Descrição: "/>
                     <p:inputTextarea
                             id="campoDescricao"
@@ -123,6 +133,16 @@
                         filterMatchMode="contains"
                         sortBy="#{c.descricao}">
                     <h:outputText value="#{c.descricao}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Valor"
+                        filterBy="#{c.valorDiaria}"
+                        filterMatchMode="contains"
+                        sortBy="#{c.valorDiaria}">
+                    <h:outputText value="#{c.valorDiaria}">
+                        <f:convertNumber pattern="#0.00" locale="pt_BR"/>
+                    </h:outputText>
                 </p:column>
 
 
