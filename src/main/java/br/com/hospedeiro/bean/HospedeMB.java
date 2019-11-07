@@ -39,6 +39,15 @@ public class HospedeMB implements Serializable {
 
 
     public void salvar() {
+
+        for (int i = 0; i < hospedes.size(); i++) {
+            Hospede hospedeBuscado =  hospedes.get(i);
+            if (hospedeBuscado.getCpf().equalsIgnoreCase(hospede.getCpf())) {
+                Mensagem.addMensagemError("erroCadastroHospedeMesmoCpf");
+                return;
+            }
+        }
+
         if (hospede.getId() == null) {
             hospedeDao.salvar(hospede);
             Mensagem.addMensagemInfo("hospedeCadastroSucesso");
