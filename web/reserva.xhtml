@@ -22,7 +22,7 @@
                     <p:outputLabel for="acomodacao" value="Acomodação:"/>
                     <p:selectOneMenu id="acomodacao" value="#{reservaMB.reserva.acomodacao}">
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Acomodação"/>
-                        <f:selectItems value="#{reservaMB.acomodacaos}" var="ac" itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
+                        <f:selectItems value="#{reservaMB.acomodacoesDisponiveis}" var="ac" itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="hospede" value="Acomodação:"/>
@@ -204,6 +204,8 @@
 
                         <h:outputText value="Numero:" />
                         <h:outputText value="#{r.acomodacao.localizacao.numero}"/>
+                        <h:outputText value="Situação:" />
+                        <h:outputText value="#{r.acomodacao.situacaoAcomodacao}"/>
                     </p:panelGrid>
                 </p:rowExpansion>
             </p:dataTable>

@@ -30,6 +30,7 @@ public class ReservaMB implements Serializable {
 
     private Reserva reserva;
     private List<Acomodacao> acomodacaos;
+    private List<Acomodacao> acomodacoesDisponiveis;
     private List<Hospede> hospedes;
     private List<Reserva> reservas;
     private IBaseDao<Reserva> reservaDao;
@@ -46,6 +47,7 @@ public class ReservaMB implements Serializable {
         acomodacaoDao = new AcomodacaoDao();
         hospedeDao = new HospedeDao();
         reservas = new ArrayList<>();
+        acomodacoesDisponiveis = new ArrayList<>();
         acomodacaos = new ArrayList<>();
         hospedes = new ArrayList<>();
         atualizar();
@@ -53,16 +55,22 @@ public class ReservaMB implements Serializable {
 
     public void atualizar() {
         reservas = reservaDao.buscarTodos();
+        acomodacaos = acomodacaoDao.buscarTodos();
+        hospedes = hospedeDao.buscarTodos();
         for (int i = 0; i < reservas.size(); i++) {
             Reserva reserva =  reservas.get(i);
             if (reserva.getFinalizado()) {
                 reservas.remove(reserva);
             }
-
+        }
+        acomodacoesDisponiveis = new ArrayList<>();
+        for (int i = 0; i < acomodacaos.size(); i++) {
+            Acomodacao acomodacaoBuscada =  acomodacaos.get(i);
+            if (acomodacaoBuscada.getSituacaoAcomodacao().equals(SituacaoAcomodacao.DISPONIVEL)) {
+                acomodacoesDisponiveis.add(acomodacaoBuscada);
+            }
         }
 
-        acomodacaos = acomodacaoDao.buscarTodos();
-        hospedes = hospedeDao.buscarTodos();
     }
 
     public void limpar() {
@@ -171,5 +179,13 @@ public class ReservaMB implements Serializable {
 
     public void setHospedes(List<Hospede> hospedes) {
         this.hospedes = hospedes;
+    }
+
+    public List<Acomodacao> getAcomodacoesDisponiveis() {
+        return acomodacoesDisponiveis;
+    }
+
+    public void setAcomodacoesDisponiveis(List<Acomodacao> acomodacoesDisponiveis) {
+        this.acomodacoesDisponiveis = acomodacoesDisponiveis;
     }
 }
