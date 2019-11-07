@@ -15,11 +15,11 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class CheckinMB implements Serializable {
+public class CheckoutMB implements Serializable {
 
     private Reserva reserva;
     private List<Reserva> reservas;
-    private List<Reserva> reservasReservadas;
+    private List<Reserva> reservasOcupadas;
     private IBaseDao<Reserva> reservaDao;
 
 
@@ -28,7 +28,7 @@ public class CheckinMB implements Serializable {
         reserva = new Reserva();
         reservaDao = new ReservaDao();
         reservas = new ArrayList<>();
-        reservasReservadas = new ArrayList<>();
+        reservasOcupadas = new ArrayList<>();
         atualizar();
     }
 
@@ -37,8 +37,8 @@ public class CheckinMB implements Serializable {
         reservas = reservaDao.buscarTodos();
         for (int i = 0; i < reservas.size(); i++) {
             Reserva reservaBuscada = reservas.get(i);
-            if (reservaBuscada.getAcomodacao().getSituacaoAcomodacao().equals(SituacaoAcomodacao.RESERVADO)) {
-                reservasReservadas.add(reservaBuscada);
+            if (reservaBuscada.getAcomodacao().getSituacaoAcomodacao().equals(SituacaoAcomodacao.OCUPADO)) {
+                reservasOcupadas.add(reservaBuscada);
             }
         }
     }
@@ -48,11 +48,11 @@ public class CheckinMB implements Serializable {
     }
 
 
-    public void efetuarCheckin() {
-        reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.OCUPADO);
+    public void efetuarCheckout() {
+        reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
+        reserva.setFinalizado(true);
         reservaDao.alterar(reserva);
-        Mensagem.addMensagemInfo("checkinEfetuadoSucesso");
-
+        Mensagem.addMensagemInfo("checkoutEfetuadoSucesso");
         limpar();
         atualizar();
     }
@@ -73,11 +73,11 @@ public class CheckinMB implements Serializable {
         this.reservas = reservas;
     }
 
-    public List<Reserva> getReservasReservadas() {
-        return reservasReservadas;
+    public List<Reserva> getReservasOcupadas() {
+        return reservasOcupadas;
     }
 
-    public void setReservasReservadas(List<Reserva> reservasReservadas) {
-        this.reservasReservadas = reservasReservadas;
+    public void setReservasOcupadas(List<Reserva> reservasOcupadas) {
+        this.reservasOcupadas = reservasOcupadas;
     }
 }

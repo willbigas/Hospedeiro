@@ -20,6 +20,8 @@ import java.util.List;
 @ViewScoped
 public class AcomodacaoMB implements Serializable {
 
+    private final String inicio = "00";
+    private final String fim = "99";
 
 
     private Acomodacao acomodacao;
@@ -53,6 +55,21 @@ public class AcomodacaoMB implements Serializable {
 
 
     public void salvar() {
+        for (int i = 0; i < acomodacaos.size(); i++) {
+            Acomodacao acomodacaoBuscada = acomodacaos.get(i);
+            if (acomodacao.getLocalizacao().getAndar().equals(acomodacaoBuscada.getLocalizacao().getAndar())
+                    && acomodacao.getLocalizacao().getNumero().equals(acomodacaoBuscada.getLocalizacao().getNumero())) {
+                Mensagem.addMensagemError("erroCadastroAcomodacaoMesmaLocalizacao");
+                return;
+            }
+        }
+
+        if (!validaNumeroDoAndar(Integer.valueOf(acomodacao.getLocalizacao().getAndar()), Integer.valueOf(acomodacao.getLocalizacao().getNumero()))) {
+            Mensagem.addMensagemError("erroCadastroAcomodacaoNumeroInvalido");
+            return;
+        }
+
+
         if (acomodacao.getId() == null) {
             acomodacao.setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
             acomodacaoDao.salvar(acomodacao);
@@ -61,7 +78,7 @@ public class AcomodacaoMB implements Serializable {
             acomodacao.setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
             acomodacaoDao.alterar(acomodacao);
             Mensagem.addMensagemInfo("acomodacaoAlteradoSucesso");
-    }
+        }
         limpar();
         atualizar();
     }
@@ -71,6 +88,16 @@ public class AcomodacaoMB implements Serializable {
         atualizar();
         limpar();
         Mensagem.addMensagemInfo("acomodacaoExclusaoSucesso");
+    }
+
+    private Boolean validaNumeroDoAndar(Integer andar, Integer numero) {
+        String valorMinimo = andar.toString() + inicio.toString();
+        String valorMaximo = andar.toString() + fim.toString();
+        if (numero >= Integer.valueOf(valorMinimo) && numero <= Integer.valueOf(valorMaximo)) {
+             return true;
+        } else {
+            return false;
+        }
     }
 
 

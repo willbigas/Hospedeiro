@@ -20,8 +20,9 @@
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                              styleClass="ui-panelgrid-blank">
                     <p:outputLabel for="campoCpf" value="Cpf:"/>
-                    <p:inputText
+                    <p:inputMask
                             id="campoCpf"
+                            mask="999.999.999-99"
                             required="true"
                             requiredMessage="O campo CPF é obrigatório!"
                             value="#{hospedeMB.hospede.cpf}"
@@ -34,7 +35,7 @@
                             value="#{hospedeMB.hospede.nome}" placeholder="Maria da silva"
                     />
                     <p:outputLabel for="idade" value="Idade:"/>
-                    <p:inputText id="idade"
+                    <p:inputNumber id="idade"
                                  value="#{hospedeMB.hospede.idade}"
                                  placeholder="21"/>
                 </p:panelGrid>

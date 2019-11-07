@@ -18,7 +18,7 @@ public class Reserva implements IBaseModel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataSaida;
     private Integer diasEmReserva;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private Acomodacao acomodacao;
     @OneToOne
     private Hospede hospede;
@@ -26,6 +26,8 @@ public class Reserva implements IBaseModel {
     private Double valorAdicional;
     @Column(columnDefinition = "Decimal (10,2)")
     private Double valorTotal;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean finalizado;
 
     @Override
     public Integer getId() {
@@ -92,6 +94,14 @@ public class Reserva implements IBaseModel {
 
     public void setDiasEmReserva(Integer diasEmReserva) {
         this.diasEmReserva = diasEmReserva;
+    }
+
+    public Boolean getFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(Boolean finalizado) {
+        this.finalizado = finalizado;
     }
 
     @Override

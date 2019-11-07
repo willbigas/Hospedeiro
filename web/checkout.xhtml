@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo">
 
-        <h2 style="text-align: center;">Efetuar Checkin</h2>
+        <h2 style="text-align: center;">Efetuar Checkout</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -19,13 +19,20 @@
             <div class="ui-fluid">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-lg-1 , ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <h:outputText value="Reserva: "/>
-                    <p:selectOneMenu id="comboReservas" value="#{checkinMB.reserva}"
+                    <p:outputLabel for="comboReservas" value="Reserva: "/>
+                    <p:selectOneMenu id="comboReservas" value="#{checkoutMB.reserva}"
                                    filter="true" filterMatchMode="contains">
                         <f:attribute name="collectionType" value="java.util.ArrayList" />
-                        <f:selectItems value="#{checkinMB.reservasReservadas}" var="r" itemLabel="#{r.hospede.nome} [#{r.acomodacao.localizacao.numero}]"/>
+                        <f:selectItems value="#{checkoutMB.reservasOcupadas}" var="r" itemLabel="#{r.hospede.nome} [#{r.acomodacao.localizacao.numero}]"/>
                     </p:selectOneMenu>
-
+                    <p:outputLabel for="campoValorAdicional" value="Valor Adicional:"/>
+                    <p:inputNumber
+                            id="campoValorAdicional"
+                            decimalSeparator=","
+                            thousandSeparator="."
+                            symbol="R$ "
+                            value="#{checkoutMB.reserva.valorAdicional}"
+                            placeholder="100,00"/>
                 </p:panelGrid>
             </div>
             <p:spacer height="10px"/>
@@ -34,8 +41,8 @@
                     <p:commandButton
                             update="formCadastro comboReservas"
                             icon="fa fa-check"
-                            action="#{checkinMB.efetuarCheckin()}"
-                            value="Efetuar Checkin"/>
+                            action="#{checkoutMB.efetuarCheckout()}"
+                            value="Efetuar Checkout"/>
                 </f:facet>
             </p:toolbar>
         </h:form>

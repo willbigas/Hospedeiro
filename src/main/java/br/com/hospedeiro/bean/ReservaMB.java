@@ -53,6 +53,14 @@ public class ReservaMB implements Serializable {
 
     public void atualizar() {
         reservas = reservaDao.buscarTodos();
+        for (int i = 0; i < reservas.size(); i++) {
+            Reserva reserva =  reservas.get(i);
+            if (reserva.getFinalizado()) {
+                reservas.remove(reserva);
+            }
+
+        }
+
         acomodacaos = acomodacaoDao.buscarTodos();
         hospedes = hospedeDao.buscarTodos();
     }
@@ -75,6 +83,8 @@ public class ReservaMB implements Serializable {
         }
 
         reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.RESERVADO);
+        reserva.setFinalizado(false);
+        acomodacaoDao.alterar(reserva.getAcomodacao());
         reserva.setDiasEmReserva(aplicaCalculoDeDias(reserva));
         reserva.setValorTotal(calculaPrecodaReserva(reserva.getDiasEmReserva(), reserva.getAcomodacao().getCategoria(), reserva));
         reserva.getValorTotal();
