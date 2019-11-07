@@ -20,10 +20,10 @@
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-lg-1 , ui-lg-11"
                              styleClass="ui-panelgrid-blank">
                     <h:outputText value="Reserva: "/>
-                    <p:selectOneMenu id="comboReservas" value="#{checkinMB.reserva}"
+                    <p:selectOneMenu value="#{checkinMB.reserva}"
                                    filter="true" filterMatchMode="contains">
                         <f:attribute name="collectionType" value="java.util.ArrayList" />
-                        <f:selectItems value="#{checkinMB.reservasReservadas}" var="r" itemLabel="#{r.hospede.nome} [#{r.acomodacao.localizacao.numero}]"/>
+                        <f:selectItems value="#{checkinMB.reservasReservadas}" var="r" itemLabel="[ Nome:  #{r.hospede.nome}] - [Nr Quarto: #{r.acomodacao.localizacao.numero}]"/>
                     </p:selectOneMenu>
 
                 </p:panelGrid>
@@ -32,7 +32,7 @@
             <p:toolbar>
                 <f:facet name="right">
                     <p:commandButton
-                            update="formCadastro comboReservas"
+                            ajax="@form"
                             icon="fa fa-check"
                             action="#{checkinMB.efetuarCheckin()}"
                             value="Efetuar Checkin"/>

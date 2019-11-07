@@ -33,8 +33,10 @@ public class CheckinMB implements Serializable {
     }
 
     public void atualizar() {
-        reservas.clear();
+        reservas = new ArrayList<>();
+        reservasReservadas = new ArrayList<>();
         reservas = reservaDao.buscarTodos();
+
         for (int i = 0; i < reservas.size(); i++) {
             Reserva reservaBuscada = reservas.get(i);
             if (reservaBuscada.getAcomodacao().getSituacaoAcomodacao().equals(SituacaoAcomodacao.RESERVADO)) {
@@ -51,10 +53,10 @@ public class CheckinMB implements Serializable {
     public void efetuarCheckin() {
         reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.OCUPADO);
         reservaDao.alterar(reserva);
-        Mensagem.addMensagemInfo("checkinEfetuadoSucesso");
-
-        limpar();
         atualizar();
+        Mensagem.addMensagemInfo("checkinEfetuadoSucesso");
+        limpar();
+
     }
 
     public Reserva getReserva() {

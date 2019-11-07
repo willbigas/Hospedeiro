@@ -33,7 +33,8 @@ public class CheckoutMB implements Serializable {
     }
 
     public void atualizar() {
-        reservas.clear();
+        reservas = new ArrayList<>();
+        reservasOcupadas = new ArrayList<>();
         reservas = reservaDao.buscarTodos();
         for (int i = 0; i < reservas.size(); i++) {
             Reserva reservaBuscada = reservas.get(i);
@@ -50,6 +51,7 @@ public class CheckoutMB implements Serializable {
 
     public void efetuarCheckout() {
         reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
+        reserva.setValorTotal(reserva.getValorTotal() + reserva.getValorAdicional());
         reserva.setFinalizado(true);
         reservaDao.alterar(reserva);
         Mensagem.addMensagemInfo("checkoutEfetuadoSucesso");
