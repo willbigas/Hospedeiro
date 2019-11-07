@@ -38,6 +38,25 @@
                     <p:inputText id="idade"
                                  value="#{hospedeMB.hospede.idade}"
                                  placeholder="21"/>
+
+                </p:panelGrid>
+                <p:panelGrid columns="4" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-2 , ui-lg-1 , ui-lg-2"
+                            >
+                    <f:facet name="header">
+                        <p:outputLabel value="Telefone"/>
+                    </f:facet>
+
+                    <p:outputLabel value="DDD:"/>
+                    <p:inputText
+                            id="ddd"
+                            value="#{hospedeMB.hospede.telefone.ddd}" placeholder="048"
+                    />
+                    <p:outputLabel value="Numero:"/>
+                    <p:inputText
+                            id="Numero"
+                            value="#{hospedeMB.hospede.telefone.numero}" placeholder="30337442"
+                    />
+
                 </p:panelGrid>
             </div>
             <p:spacer height="10px"/>
@@ -127,6 +146,22 @@
                         </p:spinner>
                     </f:facet>
                     <h:outputText value="#{h.idade}"/>
+                </p:column>
+
+                <p:column
+                        headerText="DDD"
+                        filterBy="#{h.telefone.ddd}"
+                        filterMatchMode="contains"
+                        sortBy="#{h.telefone.ddd}">
+                    <h:outputText value="#{h.telefone.ddd}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Telefone"
+                        filterBy="#{h.telefone.numero}"
+                        filterMatchMode="contains"
+                        sortBy="#{h.telefone.numero}">
+                    <h:outputText value="#{h.telefone.numero}"/>
                 </p:column>
 
                 <p:column

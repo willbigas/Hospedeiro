@@ -13,6 +13,8 @@ public class Dependente implements IBaseModel {
     private Integer id;
     private String cpf;
     private String nome;
+    @OneToOne
+    private Telefone telefone;
     @ManyToOne(targetEntity = Hospede.class)
     private Hospede hospede;
 
@@ -40,6 +42,14 @@ public class Dependente implements IBaseModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
     }
 
     public Hospede getHospede() {

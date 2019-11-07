@@ -16,6 +16,8 @@ public class Hospede implements IBaseModel {
     @Column(nullable = false)
     private String nome;
     private String idade;
+    @OneToOne
+    private Telefone telefone;
     @OneToMany(mappedBy = "hospede")
     private List<Dependente> dependentes;
 
@@ -53,6 +55,14 @@ public class Hospede implements IBaseModel {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
     }
 
     public List<Dependente> getDependentes() {

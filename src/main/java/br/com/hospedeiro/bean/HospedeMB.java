@@ -1,8 +1,10 @@
 package br.com.hospedeiro.bean;
 
 import br.com.hospedeiro.dao.HospedeDao;
+import br.com.hospedeiro.dao.TelefoneDao;
 import br.com.hospedeiro.interfaces.IBaseDao;
 import br.com.hospedeiro.model.Hospede;
+import br.com.hospedeiro.model.Telefone;
 import br.com.hospedeiro.util.Mensagem;
 
 import javax.annotation.PostConstruct;
@@ -19,12 +21,15 @@ public class HospedeMB implements Serializable {
     private Hospede hospede;
     private List<Hospede> hospedes;
     private IBaseDao<Hospede> hospedeDao;
+    private IBaseDao<Telefone> telefoneDao;
     private List<Hospede> hospedesFiltro;
 
     @PostConstruct
     public void init() {
         hospede = new Hospede();
+        hospede.setTelefone(new Telefone());
         hospedeDao = new HospedeDao();
+        telefoneDao = new TelefoneDao();
         hospedes = new ArrayList<>();
         atualizar();
     }
@@ -35,23 +40,26 @@ public class HospedeMB implements Serializable {
 
     public void limpar() {
         hospede = new Hospede();
+        hospede.setTelefone(new Telefone());
     }
 
 
     public void salvar() {
 
-        for (int i = 0; i < hospedes.size(); i++) {
-            Hospede hospedeBuscado =  hospedes.get(i);
-            if (hospedeBuscado.getCpf().equalsIgnoreCase(hospede.getCpf())) {
-                Mensagem.addMensagemError("erroCadastroHospedeMesmoCpf");
-                return;
-            }
-        }
-
         if (hospede.getId() == null) {
+            for (int i = 0; i < hospedes.size(); i++) {
+                Hospede hospedeBuscado =  hospedes.get(i);
+                if (hospedeBuscado.getCpf().equalsIgnoreCase(hospede.getCpf())) {
+                    Mensagem.addMensagemError("erroCadastroHospedeMesmoCpf");
+                    return;
+                }
+            }
+
+            telefoneDao.salvar(hospede.getTelefone());
             hospedeDao.salvar(hospede);
             Mensagem.addMensagemInfo("hospedeCadastroSucesso");
         } else {
+            telefoneDao.alterar(hospede.getTelefone());
             hospedeDao.alterar(hospede);
             Mensagem.addMensagemInfo("hospedeAlteradoSucesso");
         }

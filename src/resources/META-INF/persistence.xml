@@ -15,6 +15,7 @@
         <class>br.com.hospedeiro.model.Fornecedor</class>
         <class>br.com.hospedeiro.model.Localizacao</class>
         <class>br.com.hospedeiro.model.Reserva</class>
+        <class>br.com.hospedeiro.model.Telefone</class>
 
         <!--#Mapeamento de classes -->
 
