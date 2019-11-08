@@ -1,6 +1,7 @@
 package br.com.hospedeiro.model;
 
 import br.com.hospedeiro.interfaces.IBaseModel;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,13 +13,14 @@ public class Hospede implements IBaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @CPF
     private String cpf;
     @Column(nullable = false)
     private String nome;
     private String idade;
     @OneToOne
     private Telefone telefone;
-    @OneToMany(mappedBy = "hospede")
+    @OneToMany(mappedBy = "hospede" , fetch = FetchType.EAGER , cascade = CascadeType.REMOVE)
     private List<Dependente> dependentes;
 
 

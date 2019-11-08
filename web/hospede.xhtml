@@ -39,13 +39,6 @@
                                  value="#{hospedeMB.hospede.idade}"
                                  placeholder="21"/>
 
-                </p:panelGrid>
-                <p:panelGrid columns="4" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-2 , ui-lg-1 , ui-lg-2"
-                            >
-                    <f:facet name="header">
-                        <p:outputLabel value="Telefone"/>
-                    </f:facet>
-
                     <p:outputLabel value="DDD:"/>
                     <p:inputText
                             id="ddd"
@@ -56,8 +49,34 @@
                             id="Numero"
                             value="#{hospedeMB.hospede.telefone.numero}" placeholder="30337442"
                     />
-
                 </p:panelGrid>
+
+                <p:panelGrid columns="6"
+                             columnClasses="ui-lg-1, ui-lg-2, ui-lg-1, ui-lg-3 , ui-lg-1 , ui-lg-1"
+                             layout="grid"
+                >
+                    <f:facet name="header">
+                        Dependentes do Hospede
+                    </f:facet>
+                    <p:outputLabel for="cpfDependente" value="CPF:"/>
+                    <p:inputMask
+                            id="cpfDependente"
+                            mask="999.999.999-99"
+                            value="#{hospedeMB.dependente.cpf}" placeholder="000.000.000-00"
+                    />
+                    <p:outputLabel for="nomeDependente" value="Nome:"/>
+                    <p:inputText
+                            id="nomeDependente"
+                            value="#{hospedeMB.dependente.nome}" placeholder="Maria da silva..."
+                    />
+
+                    <p:commandButton
+                            update="formDataTable formCadastro"
+                            icon="fa fa-plus"
+                            action="#{hospedeMB.adicionarDependente()}"
+                    />
+                </p:panelGrid>
+
             </div>
             <p:spacer height="10px"/>
             <p:toolbar>
@@ -169,6 +188,15 @@
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
+                            update="formDataTable:dialogFichaHospede"
+                            oncomplete="PF('dialogFichaHospede').show();"
+                            icon="fa fa-list-alt">
+                        <f:setPropertyActionListener
+                                target="#{hospedeMB.hospede}"
+                                value="#{h}"/>
+                    </p:commandButton>
+
+                    <p:commandButton
                             update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
@@ -207,12 +235,46 @@
                         icon="fa fa-times"
                         onclick="PF('confirmDialog').hide(); return false"/>
             </p:confirmDialog>
+
+            <p:dialog id="dialogFichaHospede" header="Dependentes de #{hospedeMB.hospede.nome}"
+                      widgetVar="dialogFichaHospede" modal="true" height="100" width="600">
+                <p:dataTable
+                        id="dataTableDependentes"
+                        value="#{hospedeMB.hospede.dependentes}"
+                        var="d">
+
+                    <p:column
+                            headerText="CPF"
+                            sortBy="#{d.cpf}">
+                        <h:outputText value="#{d.cpf}"/>
+                    </p:column>
+
+                    <p:column
+                            headerText="NOME"
+                            sortBy="#{d.nome}">
+                        <h:outputText value="#{d.nome}"/>
+                    </p:column>
+
+                    <p:column
+                            headerText="Ações">
+                        <p:commandButton
+                                value="Remover"
+                                icon="fa fa-fw fa-remove"
+                                update="dataTableDependentes"
+                                action="#{hospedeMB.removerDependente}"
+                                oncomplete="PF('dialogFichaHospede').reset();"
+                        >
+                            <f:setPropertyActionListener
+                                    target="#{hospedeMB.dependente}"
+                                    value="#{d}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </p:dialog>
+
+
         </h:form>
-
-
-
-
-
 
 
     </ui:define>
