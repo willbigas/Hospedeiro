@@ -6,54 +6,20 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Gerenciamento de Formas de pagamento</ui:define>
+    <ui:define name="titulo">Gerenciamento de Contratos de recebimento</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento das Formas de pagamento</h2>
+        <h2>Contratos de Recebimento</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
 
-        <h:form id="formCadastro">
-            <div class="ui-fluid">
-                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
-                             styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoNome" value="Nome:"/>
-                    <p:inputText
-                        id="campoNome"
-                        required="true"
-                        requiredMessage="O nome da forma de pagamento é obrigatório!"
-                        value="#{formaPagamentoMB.formaPagamento.nome}"
-                        placeholder="DINHEIRO , BOLETO , CARTAO DE CREDITO"/>
-                </p:panelGrid>
-            </div>
-
-            <p:spacer height="10px"/>
-            <p:toolbar>
-                <f:facet name="left">
-                    <p:commandButton
-                            type="reset"
-                            update="@form"
-                            icon="fa fa-eraser"
-                            action="#{formaPagamentoMB.limpar()}"
-                            value="Limpar"/>
-                    <p:commandButton
-                            update="formDataTable formCadastro"
-                            icon="fa fa-save"
-                            action="#{formaPagamentoMB.salvar()}"
-                            value="Salvar"/>
-                </f:facet>
-            </p:toolbar>
-        </h:form>
-        <p:spacer height="10px"/>
-
-
 
         <h:form id="formDataTable">
             <p:dataTable
-                    id="tableFormaPagamento"
-                    filteredValue="#{formaPagamentoMB.formaPagamentoFiltro}"
+                    id="tableContratoRecebimento"
+                    filteredValue="#{recebimentoMB.contratoRecebimentosFiltro}"
                     paginator="true"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
@@ -61,29 +27,29 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{formaPagamentoMB.formaPagamentos}"
-                    var="f">
+                    value="#{recebimentoMB.contratoRecebimento}"
+                    var="r">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="img" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
+                            <p:dataExporter type="xlsx" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
+                            <p:dataExporter type="pdf" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
+                            <p:dataExporter type="csv" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
+                            <p:dataExporter type="xml" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
                     </h:commandLink>
                     </div>
 
@@ -91,7 +57,7 @@
 
                 <p:column
                         headerText="Nome"
-                        filterBy="#{f.nome}"
+                        filterBy="#{r}"
                         filterMatchMode="contains"
                         sortBy="#{f.nome}">
                     <h:outputText value="#{f.nome}"/>
@@ -102,19 +68,18 @@
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
-                            update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
-                                target="#{formaPagamentoMB.formaPagamento}"
-                                value="#{f}"/>
+                                target="#{recebimentoMB.contratoRecebimento}"
+                                value="#{r}"/>
                     </p:commandButton>
                     <p:commandButton
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
                             icon="fa fa-trash">
                         <f:setPropertyActionListener
-                                target="#{formaPagamentoMB.formaPagamento}"
-                                value="#{f}"/>
+                                target="#{recebimentoMB.contratoRecebimento}"
+                                value="#{r}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -122,7 +87,7 @@
             <p:confirmDialog
                     id="confirmDialog"
                     header="Atenção!"
-                    message="Deseja excluir #{formaPagamentoMB.formaPagamento.nome}?"
+                    message="Deseja cancelar o contrato #{recebimentoMB.contratoRecebimento.id} de #{recebimentoMB.contratoRecebimento.reserva.hospede.nome}?"
                     widgetVar="confirmDialog"
                     showEffect="fade"
                     hideEffect="fade"
@@ -132,7 +97,7 @@
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
-                        action="#{formaPagamentoMB.remover}"
+                        action="#{recebimentoMB.cancelar}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button
