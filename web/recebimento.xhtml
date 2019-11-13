@@ -27,40 +27,87 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{recebimentoMB.contratoRecebimento}"
+                    value="#{recebimentoMB.contratoRecebimentos}"
                     var="r">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="img" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
+                            <p:dataExporter type="xlsx" target="tableContratoRecebimento"
+                                            fileName="Contrato de Recebimento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
+                            <p:dataExporter type="pdf" target="tableContratoRecebimento"
+                                            fileName="Contrato de Recebimento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
+                            <p:dataExporter type="csv" target="tableContratoRecebimento"
+                                            fileName="Contrato de Recebimento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableContratoRecebimento" fileName="Contrato de Recebimento"/>
-                    </h:commandLink>
+                            <p:dataExporter type="xml" target="tableContratoRecebimento"
+                                            fileName="Contrato de Recebimento"/>
+                        </h:commandLink>
                     </div>
 
                 </f:facet>
 
                 <p:column
-                        headerText="Nome"
-                        filterBy="#{r}"
+                        headerText="ID"
+                        filterBy="#{r.id}"
                         filterMatchMode="contains"
-                        sortBy="#{f.nome}">
-                    <h:outputText value="#{f.nome}"/>
+                        sortBy="#{r.id}">
+                    <h:outputText value="#{r.id}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Data"
+                        filterBy="#{r.dataCadastro}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.dataCadastro}">
+                    <h:outputText value="#{r.dataCadastro}">
+                        <f:convertDateTime pattern="dd/MM/yyy hh:mm" timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column
+                        headerText="Cliente"
+                        filterBy="#{r.reserva.hospede.nome}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.reserva.hospede.nome}">
+                    <h:outputText value="#{r.reserva.hospede.nome}"/>
+                </p:column>
+
+
+                <p:column
+                        headerText="Valor Recebido"
+                        filterBy="#{r.valorRecebido}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.valorRecebido}">
+                    <h:outputText value="#{r.valorRecebido}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Valor Total"
+                        filterBy="#{r.valorTotal}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.valorTotal}">
+                    <h:outputText value="#{r.valorTotal}"/>
+                </p:column>
+
+                <p:column
+                        headerText="Situacao"
+                        filterBy="#{r.situacao}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.situacao}">
+                    <h:outputText value="#{r.situacao}"/>
                 </p:column>
 
                 <p:column
@@ -68,15 +115,19 @@
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
-                            icon="fa fa-pencil">
+                            update="formEditarRecebimento:dialogEditarSituacaoRecebimento"
+                            oncomplete="PF('dialogEditarSituacaoRecebimento').show();"
+                            icon="fa fa-hand-o-down"
+                            title="Receber pagamento">
                         <f:setPropertyActionListener
                                 target="#{recebimentoMB.contratoRecebimento}"
                                 value="#{r}"/>
                     </p:commandButton>
                     <p:commandButton
+                            title="Cancelar contrato"
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
-                            icon="fa fa-trash">
+                            icon="fa fa-remove">
                         <f:setPropertyActionListener
                                 target="#{recebimentoMB.contratoRecebimento}"
                                 value="#{r}"/>
@@ -94,6 +145,7 @@
                     closable="false"
                     closeOnEscape="true">
                 <p:commandButton
+                        id="bt-cancelar-recebimento"
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
@@ -104,7 +156,95 @@
                         value="Não"
                         icon="fa fa-times"
                         onclick="PF('confirmDialog').hide(); return false"/>
+
             </p:confirmDialog>
+        </h:form>
+
+        <h:form id="formEditarRecebimento">
+            <p:dialog id="dialogEditarSituacaoRecebimento"
+                      showEffect="fade"
+                      hideEffect="fade"
+                      closeOnEscape="true"
+                      header="Editar Recebimento #{recebimentoMB.contratoRecebimento.id}
+            de #{recebimentoMB.contratoRecebimento.reserva.hospede.nome}"
+                      widgetVar="dialogEditarSituacaoRecebimento" modal="true" height="500" width="540">
+
+                <h4>Hospede</h4>
+                <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-2 , ui-lg-10">
+                    <p:outputLabel
+                            for="cp-id"
+                            value="Código"/>
+                    <p:inputText
+                            id="cp-id"
+                            value="#{recebimentoMB.contratoRecebimento.reserva.hospede.id}" disabled="true"/>
+                    <p:outputLabel
+                            for="cp-nome"
+                            value="Nome"/>
+                    <p:inputText
+                            id="cp-nome"
+                            value="#{recebimentoMB.contratoRecebimento.reserva.hospede.nome}" disabled="true"/>
+                    <p:outputLabel for="cp-telefone" value="Telefone"/>
+                    <p:inputText id="cp-telefone"
+                                 value="(#{recebimentoMB.contratoRecebimento.reserva.hospede.telefone.ddd}) - #{recebimentoMB.contratoRecebimento.reserva.hospede.telefone.numero}"
+                                 disabled="true"/>
+                </p:panelGrid>
+
+                <h4>Contrato</h4>
+                <p:panelGrid
+                        layout="grid"
+                        columns="2"
+                        columnClasses="ui-lg-3 , ui-lg-9">
+                    <p:outputLabel
+                            for="cp-ct-id"
+                            value="Código"/>
+                    <p:inputText
+                            id="cp-ct-id"
+                            value="#{recebimentoMB.contratoRecebimento.id}"
+                            disabled="true"/>
+                    <p:outputLabel
+                            for="cp-ct-vlRecebido"
+                            value="Valor Recebido"/>
+                    <p:inputText
+                            id="cp-ct-vlRecebido"
+                            value="#{recebimentoMB.contratoRecebimento.valorRecebido}"
+                            disabled="true"/>
+                    <p:outputLabel
+                            for="cp-ct-vlTotal"
+                            value="Valor Total"/>
+                    <p:inputText
+                            id="cp-ct-vlTotal"
+                            value="#{recebimentoMB.contratoRecebimento.valorTotal}"
+                            disabled="true"/>
+                    <p:outputLabel
+                            for="cp-ct-situacao"
+                            value="Situação"/>
+                    <p:inputText
+                            id="cp-ct-situacao"
+                            value="#{recebimentoMB.contratoRecebimento.situacao}"
+                            disabled="true"/>
+                </p:panelGrid>
+
+
+                <h4>Receber Pabamento</h4>
+                <p:panelGrid layout="grid" columns="4" columnClasses="ui-lg-2, ui-lg-5 , ui-lg-2 , ui-lg-2">
+                    <p:outputLabel for="campoValorAReceber" value="Valor"/>
+                    <p:inputNumber
+                            id="campoValorAReceber"
+                            decimalSeparator=","
+                            thousandSeparator="."
+                            symbol="R$ "
+                            value="#{recebimentoMB.valorAReceber}"/>
+                    <p:commandButton
+                            value="Limpar"
+                            type="reset"/>
+                    <p:commandButton
+                            disabled="#{recebimentoMB.contratoRecebimento.pago}"
+                            value="Receber"
+                            update="formEditarRecebimento:dialogEditarSituacaoRecebimento formDataTable"
+                            action="#{recebimentoMB.receberPagamento}">
+                    </p:commandButton>
+                </p:panelGrid>
+            </p:dialog>
         </h:form>
 
     </ui:define>

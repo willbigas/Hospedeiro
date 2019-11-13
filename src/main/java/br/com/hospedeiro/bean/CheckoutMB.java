@@ -74,6 +74,7 @@ public class CheckoutMB implements Serializable {
         contratoRecebimento.setDataCadastro(new Timestamp(System.currentTimeMillis()));
         contratoRecebimento.setSituacao(SituacaoContrato.ABERTO);
         contratoRecebimento.setValorTotal(reserva.getValorTotal());
+        contratoRecebimento.setPago(false);
 
         if (contratoRecebimento.getId() == null) {
             contratoRecebimentoDao.salvar(contratoRecebimento);

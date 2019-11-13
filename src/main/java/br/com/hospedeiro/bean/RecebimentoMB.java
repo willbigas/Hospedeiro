@@ -24,6 +24,8 @@ public class RecebimentoMB implements Serializable {
     private IBaseDao<ContratoRecebimento> contratoRecebimentoDao;
     private List<ContratoRecebimento> contratoRecebimentosFiltro;
 
+    private Double valorAReceber;
+
     @PostConstruct
     public void init() {
         contratoRecebimento = new ContratoRecebimento();
@@ -41,7 +43,14 @@ public class RecebimentoMB implements Serializable {
     }
 
     public void receberPagamento() {
-
+        contratoRecebimento.setValorRecebido(contratoRecebimento.getValorRecebido() + valorAReceber);
+        if (contratoRecebimento.getValorRecebido().equals(contratoRecebimento.getValorTotal())) {
+            contratoRecebimento.setSituacao(SituacaoContrato.PAGO);
+            contratoRecebimento.setPago(true);
+        }
+        contratoRecebimentoDao.alterar(contratoRecebimento);
+        Mensagem.addMensagemInfo("recepcaoPagamentoConfirmada");
+        valorAReceber = null;
     }
 
     public void cancelar() {
@@ -74,5 +83,13 @@ public class RecebimentoMB implements Serializable {
 
     public void setContratoRecebimentosFiltro(List<ContratoRecebimento> contratoRecebimentosFiltro) {
         this.contratoRecebimentosFiltro = contratoRecebimentosFiltro;
+    }
+
+    public Double getValorAReceber() {
+        return valorAReceber;
+    }
+
+    public void setValorAReceber(Double valorAReceber) {
+        this.valorAReceber = valorAReceber;
     }
 }

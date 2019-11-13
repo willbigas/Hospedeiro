@@ -17,6 +17,9 @@ public class ContratoRecebimento extends Contrato implements IBaseModel{
     @OneToOne
     private Reserva reserva;
 
+    @Column(columnDefinition = "Boolean")
+    private Boolean pago;
+
 
     @Override
     public Integer getId() {
@@ -42,6 +45,14 @@ public class ContratoRecebimento extends Contrato implements IBaseModel{
 
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
+    }
+
+    public Boolean getPago() {
+        return pago;
+    }
+
+    public void setPago(Boolean pago) {
+        this.pago = pago;
     }
 
     @Override
