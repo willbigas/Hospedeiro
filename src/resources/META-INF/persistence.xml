@@ -16,6 +16,11 @@
         <class>br.com.hospedeiro.model.Localizacao</class>
         <class>br.com.hospedeiro.model.Reserva</class>
         <class>br.com.hospedeiro.model.Telefone</class>
+        <class>br.com.hospedeiro.model.Contrato</class>
+        <class>br.com.hospedeiro.model.ContratoRecebimento</class>
+        <class>br.com.hospedeiro.model.ContratoPagamento</class>
+        <class>br.com.hospedeiro.model.FormaPagamento</class>
+
 
         <!--#Mapeamento de classes -->
 

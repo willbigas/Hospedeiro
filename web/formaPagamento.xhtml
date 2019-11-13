@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Tipos de Acomodações</h2>
+        <h2>Gerenciamento das Formas de pagamento</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -23,39 +23,9 @@
                     <p:inputText
                         id="campoNome"
                         required="true"
-                        requiredMessage="O campo Nome é obrigatório!"
-                        value="#{categoriaMB.categoria.nome}"
-                        placeholder="Suite, Presidencial, Comum"/>
-                    <p:outputLabel for="campoValor" value="Valor Diaria: "/>
-                    <p:inputNumber
-                            id="campoValor"
-                            required="true"
-                            requiredMessage="O campo Valor da diaria é obrigatório!"
-                            decimalSeparator=","
-                            thousandSeparator="."
-                            symbol="R$ "
-                            value="#{categoriaMB.categoria.valorDiaria}"
-                            placeholder="120,99"/>
-                    <p:outputLabel for="campoDescricao" value="Descrição: "/>
-                    <p:inputTextarea
-                            id="campoDescricao"
-                            rows="10"
-                            cols="50"
-                            required="true"
-                            maxlength="230"
-                            counterTemplate="{0} characters remaining."
-                            autoResize="false"
-                            requiredMessage="Numero deve ser preenchido!"
-                            value="#{categoriaMB.categoria.descricao}" placeholder="Uma breve descrição da categoria aqui..."
-                    />
-                    <br />
-                    <h:outputText id="display" />
-                    <p:outputLabel for="campoAtributos" value="Atributos:"/>
-                    <p:selectManyMenu id="campoAtributos"  value="#{categoriaMB.categoria.atributos}">
-                        <f:attribute name="collectionType" value="java.util.ArrayList" />
-                        <f:selectItem noSelectionOption="true" itemLabel="Selecione uma ou mais atributos"/>
-                        <f:selectItems var="atr" value="#{categoriaMB.atributos}" itemLabel="#{atr.nome}"/>
-                    </p:selectManyMenu>
+                        requiredMessage="O nome da forma de pagamento é obrigatório!"
+                        value="#{formaPagamentoMB.formaPagamento.nome}"
+                        placeholder="DINHEIRO , BOLETO , CARTAO DE CREDITO"/>
                 </p:panelGrid>
             </div>
 
@@ -66,12 +36,12 @@
                             type="reset"
                             update="@form"
                             icon="fa fa-eraser"
-                            action="#{categoriaMB.limpar()}"
+                            action="#{formaPagamentoMB.limpar()}"
                             value="Limpar"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
-                            action="#{categoriaMB.salvar()}"
+                            action="#{formaPagamentoMB.salvar()}"
                             value="Salvar"/>
                 </f:facet>
             </p:toolbar>
@@ -82,8 +52,8 @@
 
         <h:form id="formDataTable">
             <p:dataTable
-                    id="tableCategoria"
-                    filteredValue="#{categoriaMB.categoriasFiltro}"
+                    id="tableFormaPagamento"
+                    filteredValue="#{formaPagamentoMB.formaPagamentoFiltro}"
                     paginator="true"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
@@ -91,60 +61,41 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{categoriaMB.categorias}"
-                    var="c">
+                    value="#{formaPagamentoMB.formaPagamentos}"
+                    var="f">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="img" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
+                            <p:dataExporter type="xlsx" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
+                            <p:dataExporter type="pdf" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
+                            <p:dataExporter type="csv" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableCategoria" fileName="Tipos de Acomodacoes"/>
-                        </h:commandLink>
+                            <p:dataExporter type="xml" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
+                    </h:commandLink>
                     </div>
 
                 </f:facet>
 
                 <p:column
                         headerText="Nome"
-                        filterBy="#{c.nome}"
+                        filterBy="#{f.nome}"
                         filterMatchMode="contains"
-                        sortBy="#{c.nome}">
-                    <h:outputText value="#{c.nome}"/>
+                        sortBy="#{f.nome}">
+                    <h:outputText value="#{f.nome}"/>
                 </p:column>
-
-                <p:column
-                        headerText="Descrição"
-                        filterBy="#{c.descricao}"
-                        filterMatchMode="contains"
-                        sortBy="#{c.descricao}">
-                    <h:outputText value="#{c.descricao}"/>
-                </p:column>
-
-                <p:column
-                        headerText="Valor"
-                        filterBy="#{c.valorDiaria}"
-                        filterMatchMode="contains"
-                        sortBy="#{c.valorDiaria}">
-                    <h:outputText value="#{c.valorDiaria}">
-                        <f:convertNumber pattern="#0.00" locale="pt_BR"/>
-                    </h:outputText>
-                </p:column>
-
 
                 <p:column
                         headerText="Ações"
@@ -154,16 +105,16 @@
                             update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
-                                target="#{categoriaMB.categoria}"
-                                value="#{c}"/>
+                                target="#{formaPagamentoMB.formaPagamento}"
+                                value="#{f}"/>
                     </p:commandButton>
                     <p:commandButton
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
                             icon="fa fa-trash">
                         <f:setPropertyActionListener
-                                target="#{categoriaMB.categoria}"
-                                value="#{c}"/>
+                                target="#{formaPagamentoMB.formaPagamento}"
+                                value="#{f}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -171,7 +122,7 @@
             <p:confirmDialog
                     id="confirmDialog"
                     header="Atenção!"
-                    message="Deseja realmente excluir este Tipo de Acomodação? #{categoriaMB.categoria.nome}"
+                    message="Deseja excluir #{formaPagamentoMB.formaPagamento.nome}?"
                     widgetVar="confirmDialog"
                     showEffect="fade"
                     hideEffect="fade"
@@ -181,7 +132,7 @@
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
-                        action="#{categoriaMB.remover}"
+                        action="#{formaPagamentoMB.remover}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button

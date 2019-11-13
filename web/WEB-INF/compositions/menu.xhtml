@@ -23,8 +23,12 @@
                 <p:menuitem value="Tipos de acomodações" outcome="/categoria.xhtml" icon="fa fa-bars"/>
                 <p:menuitem value="Atributos" outcome="/atributo.xhtml" icon="fa fa-list-alt"/>
             </p:submenu>
+            <p:submenu label="Financeiro" outcome="/fornecedor.xhtml" icon="fa fa-credit-card">
+                <p:menuitem value="Recebimento" outcome="/acomodacao.xhtml" icon="fa fa-money"/>
+                <p:menuitem value="Pagamento" outcome="/acomodacao.xhtml" icon="fa fa-calculator"/>
+                <p:menuitem value="Formas de pagamento" outcome="/formaPagamento.xhtml" icon="fa fa-cc-visa"/>
+            </p:submenu>
             <p:menuitem value="Fonecedores" outcome="/fornecedor.xhtml" icon="fa fa-building"/>
-
             <f:facet name="options">
                 <p:commandButton type="button" value="Sair" icon="fa fa-sign-out"/>
             </f:facet>

@@ -262,7 +262,7 @@
                                 icon="fa fa-fw fa-remove"
                                 update="dataTableDependentes"
                                 action="#{hospedeMB.removerDependente}"
-                                oncomplete="PF('dialogFichaHospede').reset();"
+                                oncomplete="location.reload();"
                         >
                             <f:setPropertyActionListener
                                     target="#{hospedeMB.dependente}"
