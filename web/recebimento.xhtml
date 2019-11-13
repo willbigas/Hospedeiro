@@ -167,10 +167,10 @@
                       closeOnEscape="true"
                       header="Editar Recebimento #{recebimentoMB.contratoRecebimento.id}
             de #{recebimentoMB.contratoRecebimento.reserva.hospede.nome}"
-                      widgetVar="dialogEditarSituacaoRecebimento" modal="true" height="500" width="540">
+                      widgetVar="dialogEditarSituacaoRecebimento" modal="true" height="500" width="800">
 
                 <h4>Hospede</h4>
-                <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-2 , ui-lg-10">
+                <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-2 , ui-lg-10" styleClass="ui-fluid">
                     <p:outputLabel
                             for="cp-id"
                             value="Código"/>
@@ -193,6 +193,7 @@
                 <p:panelGrid
                         layout="grid"
                         columns="2"
+                        styleClass="ui-fluid"
                         columnClasses="ui-lg-3 , ui-lg-9">
                     <p:outputLabel
                             for="cp-ct-id"
@@ -226,7 +227,10 @@
 
 
                 <h4>Receber Pabamento</h4>
-                <p:panelGrid layout="grid" columns="4" columnClasses="ui-lg-2, ui-lg-5 , ui-lg-2 , ui-lg-2">
+                <p:panelGrid layout="grid"
+                             columns="2"
+                             styleClass="ui-fluid"
+                             columnClasses="ui-lg-2, ui-lg-10">
                     <p:outputLabel for="campoValorAReceber" value="Valor"/>
                     <p:inputNumber
                             id="campoValorAReceber"
@@ -234,9 +238,11 @@
                             thousandSeparator="."
                             symbol="R$ "
                             value="#{recebimentoMB.valorAReceber}"/>
-                    <p:commandButton
-                            value="Limpar"
-                            type="reset"/>
+                    <p:outputLabel for="comboFormaPagamento" value="Forma Pagto:"/>
+                    <p:selectOneMenu id="comboFormaPagamento" value="#{recebimentoMB.contratoRecebimento.formaPagamento}">
+                        <f:selectItem noSelectionOption="true" itemLabel="Selecione..."/>
+                        <f:selectItems value="#{recebimentoMB.formaPagamentos}" var="fp" itemLabel="#{fp.nome}"/>
+                    </p:selectOneMenu>
                     <p:commandButton
                             disabled="#{recebimentoMB.contratoRecebimento.pago}"
                             value="Receber"

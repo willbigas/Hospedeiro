@@ -1,6 +1,7 @@
 package br.com.hospedeiro.bean;
 
 import br.com.hospedeiro.dao.ContratoRecebimentoDao;
+import br.com.hospedeiro.dao.FormaPagamentoDao;
 import br.com.hospedeiro.interfaces.IBaseDao;
 import br.com.hospedeiro.model.ContratoRecebimento;
 import br.com.hospedeiro.model.FormaPagamento;
@@ -11,7 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ManagedBean
@@ -22,7 +25,10 @@ public class RecebimentoMB implements Serializable {
     private ContratoRecebimento contratoRecebimento;
     private List<ContratoRecebimento> contratoRecebimentos;
     private IBaseDao<ContratoRecebimento> contratoRecebimentoDao;
+    private IBaseDao<FormaPagamento> formaPagamentoDao;
     private List<ContratoRecebimento> contratoRecebimentosFiltro;
+    private List<FormaPagamento> formaPagamentos;
+
 
     private Double valorAReceber;
 
@@ -30,12 +36,15 @@ public class RecebimentoMB implements Serializable {
     public void init() {
         contratoRecebimento = new ContratoRecebimento();
         contratoRecebimentoDao = new ContratoRecebimentoDao();
+        formaPagamentoDao = new FormaPagamentoDao();
         contratoRecebimentos = new ArrayList<>();
+        formaPagamentos = new ArrayList<>();
         atualizar();
     }
 
     public void atualizar() {
         contratoRecebimentos = contratoRecebimentoDao.buscarTodos();
+        formaPagamentos = formaPagamentoDao.buscarTodos();
     }
 
     public void limpar() {
@@ -91,5 +100,13 @@ public class RecebimentoMB implements Serializable {
 
     public void setValorAReceber(Double valorAReceber) {
         this.valorAReceber = valorAReceber;
+    }
+
+    public List<FormaPagamento> getFormaPagamentos() {
+        return formaPagamentos;
+    }
+
+    public void setFormaPagamentos(List<FormaPagamento> formaPagamentos) {
+        this.formaPagamentos = formaPagamentos;
     }
 }
