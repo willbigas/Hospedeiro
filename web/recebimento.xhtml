@@ -99,7 +99,9 @@
                         filterBy="#{r.valorTotal}"
                         filterMatchMode="contains"
                         sortBy="#{r.valorTotal}">
-                    <h:outputText value="#{r.valorTotal}"/>
+                    <h:outputText value="#{r.valorTotal}">
+                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column
@@ -167,7 +169,7 @@
                       closeOnEscape="true"
                       header="Editar Recebimento #{recebimentoMB.contratoRecebimento.id}
             de #{recebimentoMB.contratoRecebimento.reserva.hospede.nome}"
-                      widgetVar="dialogEditarSituacaoRecebimento" modal="true" height="500" width="800">
+                      widgetVar="dialogEditarSituacaoRecebimento" modal="true" height="600" width="800">
 
                 <h4>Hospede</h4>
                 <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-2 , ui-lg-10" styleClass="ui-fluid">

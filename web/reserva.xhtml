@@ -167,16 +167,23 @@
                         filterMatchMode="contains"
                         sortBy="#{r.valorTotal}">
                     <h:outputText value="#{r.valorTotal}">
-                        <f:convertNumber pattern="#0.00" locale="pt_BR"/>
+                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
                     </h:outputText>
                 </p:column>
 
                 <p:column
                         headerText="Finalizado"
                         filterBy="#{r.finalizado}"
-                        filterMatchMode="contains"
-                        sortBy="#{r.finalizado}">
-                    <h:outputText value="#{r.finalizado}"/>
+                        filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:selectOneButton onchange="PF('tabela-principal').filter()" styleClass="custom-filter">
+                            <f:converter converterId="javax.faces.Boolean" />
+                            <f:selectItem itemLabel="Todos" itemValue="" />
+                            <f:selectItem itemLabel="Finalizado" itemValue="true" />
+                            <f:selectItem itemLabel="Pendente" itemValue="false" />
+                        </p:selectOneButton>
+                    </f:facet>
+                    <h:outputText value="#{r.finalizado ? 'Finalizado': 'Pendente'}" />
                 </p:column>
 
                 <p:column

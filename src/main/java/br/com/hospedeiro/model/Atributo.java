@@ -13,6 +13,9 @@ public class Atributo implements IBaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Column(columnDefinition = "Decimal (10,2)")
+    private Double valor;
+
     @ManyToMany(fetch=FetchType.EAGER)
     private List<Categoria> categorias;
 
@@ -34,6 +37,14 @@ public class Atributo implements IBaseModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
     @Override

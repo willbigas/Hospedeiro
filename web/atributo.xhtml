@@ -26,6 +26,14 @@
                             requiredMessage="O campo Nome é obrigatório!"
                             value="#{atributoMB.atributo.nome}"
                             placeholder="Hidromassagem, Microondas, Cama Redonda"/>
+                    <p:outputLabel for="campoValor" value="Valor:"/>
+                    <p:inputNumber
+                            id="campoValor"
+                            decimalSeparator=","
+                            thousandSeparator="."
+                            symbol="R$ "
+                            value="#{atributoMB.atributo.valor}"
+                            placeholder="120,99"/>
                 </p:panelGrid>
             </div>
             <p:spacer height="10px"/>
@@ -93,6 +101,17 @@
                         filterMatchMode="contains"
                         sortBy="#{a.nome}">
                     <h:outputText value="#{a.nome}"/>
+                </p:column>
+
+
+                <p:column
+                        headerText="Valor"
+                        filterBy="#{a.valor}"
+                        filterMatchMode="contains"
+                        sortBy="#{a.valor}">
+                    <h:outputText value="#{a.valor}">
+                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column

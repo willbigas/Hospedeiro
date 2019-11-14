@@ -30,6 +30,7 @@ public class ReservaMB implements Serializable {
     private List<Acomodacao> acomodacoesDisponiveis;
     private List<Hospede> hospedes;
     private List<Reserva> reservas;
+    private List<Atributo> atributos;
     private IBaseDao<Reserva> reservaDao;
     private IBaseDao<Acomodacao> acomodacaoDao;
     private IBaseDao<Hospede> hospedeDao;
@@ -44,6 +45,8 @@ public class ReservaMB implements Serializable {
         acomodacaoDao = new AcomodacaoDao();
         hospedeDao = new HospedeDao();
         reservas = new ArrayList<>();
+        atributos = new ArrayList<>();
+
         acomodacoesDisponiveis = new ArrayList<>();
         acomodacaos = new ArrayList<>();
         hospedes = new ArrayList<>();
@@ -85,6 +88,11 @@ public class ReservaMB implements Serializable {
         if (menorQueHoje(reserva.getDataSaida())) {
             Mensagem.addMensagemError("erroCadastroDataSaidaHoje");
             return;
+        }
+
+        for (int i = 0; i < acomodacaos.size(); i++) {
+            Acomodacao acomodacao =  acomodacaos.get(i);
+
         }
 
         reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.RESERVADO);
