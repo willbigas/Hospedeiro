@@ -260,9 +260,8 @@
                         <p:commandButton
                                 value="Remover"
                                 icon="fa fa-fw fa-remove"
-                                update="dataTableDependentes"
+                                update="@form"
                                 action="#{hospedeMB.removerDependente}"
-                                oncomplete="location.reload();"
                         >
                             <f:setPropertyActionListener
                                     target="#{hospedeMB.dependente}"

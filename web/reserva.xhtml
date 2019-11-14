@@ -17,12 +17,14 @@
 
         <h:form id="formCadastro">
             <div class="ui-fluid">
-                <p:panelGrid columns="4" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-5, ui-lg-1 , ui-lg-5"
+                <p:panelGrid columns="4" layout="grid"
+                             columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-5, ui-lg-1 , ui-lg-5"
                              styleClass="ui-panelgrid-blank">
                     <p:outputLabel for="acomodacao" value="Acomodação:"/>
                     <p:selectOneMenu id="acomodacao" value="#{reservaMB.reserva.acomodacao}">
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Acomodação"/>
-                        <f:selectItems value="#{reservaMB.acomodacoesDisponiveis}" var="ac" itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
+                        <f:selectItems value="#{reservaMB.acomodacoesDisponiveis}" var="ac"
+                                       itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel for="hospede" value="Acomodação:"/>
@@ -122,8 +124,8 @@
                 </f:facet>
 
                 <p:column style="width:16px">
-                <p:rowToggler />
-            </p:column>
+                    <p:rowToggler/>
+                </p:column>
 
                 <p:column
                         headerText="Hospede"
@@ -170,6 +172,14 @@
                 </p:column>
 
                 <p:column
+                        headerText="Finalizado"
+                        filterBy="#{r.finalizado}"
+                        filterMatchMode="contains"
+                        sortBy="#{r.finalizado}">
+                    <h:outputText value="#{r.finalizado}"/>
+                </p:column>
+
+                <p:column
                         headerText="Ações"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
@@ -191,20 +201,20 @@
                 </p:column>
 
                 <p:rowExpansion>
-                    <p:panelGrid  columns="2" style="width:300px">
+                    <p:panelGrid columns="2" style="width:300px">
                         <f:facet name="header">
                             <p:outputLabel value="Acomodacao"/>
                         </f:facet>
 
-                        <h:outputText value="Categoria:" />
-                        <h:outputText value="#{r.acomodacao.categoria.nome}" />
+                        <h:outputText value="Categoria:"/>
+                        <h:outputText value="#{r.acomodacao.categoria.nome}"/>
 
-                        <h:outputText value="Andar" />
-                        <h:outputText value="#{r.acomodacao.localizacao.andar}" />
+                        <h:outputText value="Andar"/>
+                        <h:outputText value="#{r.acomodacao.localizacao.andar}"/>
 
-                        <h:outputText value="Numero:" />
+                        <h:outputText value="Numero:"/>
                         <h:outputText value="#{r.acomodacao.localizacao.numero}"/>
-                        <h:outputText value="Situação:" />
+                        <h:outputText value="Situação:"/>
                         <h:outputText value="#{r.acomodacao.situacaoAcomodacao}"/>
                     </p:panelGrid>
                 </p:rowExpansion>
@@ -232,11 +242,6 @@
                         onclick="PF('confirmDialog').hide(); return false"/>
             </p:confirmDialog>
         </h:form>
-
-
-
-
-
 
 
     </ui:define>
