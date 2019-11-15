@@ -30,6 +30,24 @@
             </p:submenu>
             <p:menuitem value="Fonecedores" outcome="/fornecedor.xhtml" icon="fa fa-building"/>
             <f:facet name="options">
+                <h:commandButton
+                        styleClass="bandeira-idioma"
+                        title="Inglês"
+                        image="/resources/img/estados-unidos.png">
+                    <f:setPropertyActionListener
+                            target="#{idiomaMB.idiomaSelecionado}"
+                            value="en_US"/>
+
+                </h:commandButton>
+                <h:commandButton
+                        styleClass="bandeira-idioma"
+                        title="Português"
+                        image="/resources/img/brasil.png">
+                    <f:setPropertyActionListener
+                            target="#{idiomaMB.idiomaSelecionado}"
+                            value="pt_BR"/>
+
+                </h:commandButton>
                 <p:commandButton type="button" value="Sair" icon="fa fa-sign-out"/>
             </f:facet>
         </p:menubar>

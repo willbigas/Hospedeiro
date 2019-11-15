@@ -51,3 +51,13 @@
 .logo {
     text-align: center;
 }
+
+.ui-menu .ui-menu-list .ui-menuitem {
+    display: flex;
+}
+
+.bandeira-idioma {
+    width: 30px;
+    margin-right: 10px;
+
+}
