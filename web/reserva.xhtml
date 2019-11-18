@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Reservas</h2>
+        <h2>#{messages['lbl.gerenciamentoDeReservas']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -27,13 +27,13 @@
                                        itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="hospede" value="Acomodação:"/>
+                    <p:outputLabel for="hospede" value="#{messages['lbl.acomodacao']}:"/>
                     <p:selectOneMenu id="hospede" value="#{reservaMB.reserva.hospede}">
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione um Hospede"/>
                         <f:selectItems value="#{reservaMB.hospedes}" var="h" itemLabel="[#{h.cpf}] - [#{h.nome}]"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="dataEntrada" value="Data de entrada:"/>
+                    <p:outputLabel for="dataEntrada" value="#{messages['lbl.dataEntrada']}:"/>
                     <p:calendar id="dataEntrada"
                                 yearRange="c-100:c+0"
                                 pattern="dd/MM/yyyy HH:mm"
@@ -47,7 +47,7 @@
                                 value="#{reservaMB.reserva.dataEntrada}"
                                 placeholder="dd/mm/aaaa">
                     </p:calendar>
-                    <p:outputLabel for="dataSaida" value="Data de saida:"/>
+                    <p:outputLabel for="dataSaida" value="#{messages['lbl.dataSaida']}:"/>
                     <p:calendar id="dataSaida"
                                 yearRange="c+0:c+100"
                                 pattern="dd/MM/yyyy HH:mm"
@@ -73,12 +73,12 @@
                             update="@form"
                             icon="fa fa-eraser"
                             action="#{reservaMB.limpar()}"
-                            value="Limpar"/>
+                            value="#{messages['lbl.limpar']}"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
                             action="#{reservaMB.salvar()}"
-                            value="Salvar"/>
+                            value="#{messages['lbl.salvar']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
