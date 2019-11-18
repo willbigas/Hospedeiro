@@ -178,17 +178,17 @@
                             value="Código"/>
                     <p:inputText
                             id="cp-id"
-                            value="#{recebimentoMB.contratoRecebimento.reserva.hospede.id}" disabled="true"/>
+                            value="#{recebimentoMB.contratoRecebimento.reserva.hospede.id}" readonly="true"/>
                     <p:outputLabel
                             for="cp-nome"
                             value="Nome"/>
                     <p:inputText
                             id="cp-nome"
-                            value="#{recebimentoMB.contratoRecebimento.reserva.hospede.nome}" disabled="true"/>
+                            value="#{recebimentoMB.contratoRecebimento.reserva.hospede.nome}" readonly="true"/>
                     <p:outputLabel for="cp-telefone" value="Telefone"/>
                     <p:inputText id="cp-telefone"
                                  value="(#{recebimentoMB.contratoRecebimento.reserva.hospede.telefone.ddd}) - #{recebimentoMB.contratoRecebimento.reserva.hospede.telefone.numero}"
-                                 disabled="true"/>
+                                 readonly="true"/>
                 </p:panelGrid>
 
                 <h4>Contrato</h4>
@@ -203,28 +203,30 @@
                     <p:inputText
                             id="cp-ct-id"
                             value="#{recebimentoMB.contratoRecebimento.id}"
-                            disabled="true"/>
+                            readonly="true"/>
                     <p:outputLabel
                             for="cp-ct-vlRecebido"
                             value="Valor Recebido"/>
                     <p:inputText
                             id="cp-ct-vlRecebido"
                             value="#{recebimentoMB.contratoRecebimento.valorRecebido}"
-                            disabled="true"/>
+                            readonly="true"/>
                     <p:outputLabel
                             for="cp-ct-vlTotal"
                             value="Valor Total"/>
                     <p:inputText
                             id="cp-ct-vlTotal"
                             value="#{recebimentoMB.contratoRecebimento.valorTotal}"
-                            disabled="true"/>
+                            readonly="true">
+                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                    </p:inputText>
                     <p:outputLabel
                             for="cp-ct-situacao"
                             value="Situação"/>
                     <p:inputText
                             id="cp-ct-situacao"
                             value="#{recebimentoMB.contratoRecebimento.situacao}"
-                            disabled="true"/>
+                            readonly="true"/>
                 </p:panelGrid>
 
 
