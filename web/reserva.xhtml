@@ -20,14 +20,14 @@
                 <p:panelGrid columns="4" layout="grid"
                              columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-5, ui-lg-1 , ui-lg-5"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="acomodacao" value="Acomodação:"/>
+                    <p:outputLabel for="acomodacao" value="#{messages['lbl.acomodacao']}:"/>
                     <p:selectOneMenu id="acomodacao" value="#{reservaMB.reserva.acomodacao}">
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione uma Acomodação"/>
                         <f:selectItems value="#{reservaMB.acomodacoesDisponiveis}" var="ac"
                                        itemLabel="#{ac.localizacao.andar} - #{ac.localizacao.numero}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="hospede" value="#{messages['lbl.acomodacao']}:"/>
+                    <p:outputLabel for="hospede" value="#{messages['lbl.hospede']}:"/>
                     <p:selectOneMenu id="hospede" value="#{reservaMB.reserva.hospede}">
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione um Hospede"/>
                         <f:selectItems value="#{reservaMB.hospedes}" var="h" itemLabel="[#{h.cpf}] - [#{h.nome}]"/>
@@ -128,7 +128,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Hospede"
+                        headerText="#{messages['lbl.hospede']}"
                         styleClass="reserva-coluna-cp"
                         filterBy="#{r.hospede.nome}"
                         filterMatchMode="contains"
@@ -137,7 +137,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Nº Acomodação"
+                        headerText="#{messages['lbl.numeroAcomodacao']}"
                         styleClass="reserva-coluna-acomodacao"
                         filterBy="#{r.acomodacao.localizacao.numero}"
                         filterMatchMode="contains"
@@ -146,7 +146,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Data Inicio"
+                        headerText="#{messages['lbl.dataEntrada']}"
                         sortBy="#{r.dataEntrada}">
                     <h:outputText value="#{r.dataEntrada}">
                         <f:convertDateTime pattern="dd/MM/yyy hh:mm" timeZone="#{initParam.timezone}"/>
@@ -154,7 +154,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Data Final"
+                        headerText="#{messages['lbl.dataSaida']}"
                         sortBy="#{r.dataSaida}">
                     <h:outputText value="#{r.dataSaida}">
                         <f:convertDateTime pattern="dd/MM/yyy hh:mm" timeZone="#{initParam.timezone}"/>
@@ -162,7 +162,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Valor total"
+                        headerText="#{messages['lbl.valorTotal']}"
                         filterBy="#{r.valorTotal}"
                         filterMatchMode="contains"
                         sortBy="#{r.valorTotal}">
@@ -172,22 +172,22 @@
                 </p:column>
 
                 <p:column
-                        headerText="Finalizado"
+                        headerText="#{messages['lbl.finalizado']}"
                         filterBy="#{r.finalizado}"
                         filterMatchMode="equals">
                     <f:facet name="filter">
                         <p:selectOneButton onchange="PF('tabela-principal').filter()" styleClass="custom-filter">
                             <f:converter converterId="javax.faces.Boolean" />
-                            <f:selectItem itemLabel="Todos" itemValue="" />
-                            <f:selectItem itemLabel="Finalizado" itemValue="true" />
-                            <f:selectItem itemLabel="Pendente" itemValue="false" />
+                            <f:selectItem itemLabel="#{messages['lbl.todos']}" itemValue="" />
+                            <f:selectItem itemLabel="#{messages['lbl.finalizado']}" itemValue="true" />
+                            <f:selectItem itemLabel="#{messages['lbl.pendente']}" itemValue="false" />
                         </p:selectOneButton>
                     </f:facet>
                     <h:outputText value="#{r.finalizado ? 'Finalizado': 'Pendente'}" />
                 </p:column>
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
