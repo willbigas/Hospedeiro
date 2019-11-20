@@ -15,12 +15,17 @@
         </p:growl>
 
 
-        <p:panelGrid columns="" styleClass="ui-panelgrid-blank">
-            <h4 style="text-align: center;">#{messages['lbl.categoriasXAcomodacoes']}</h4>
-            <p:pieChart model="#{dashboardMB.pieModel}" style="width: 100%; height: 450px;"/>
+        <p:panelGrid layout="grid" columns="4" columnClasses="ui-fluid ui-lg-6, ui-lg-6">
+            <p:panel id="categoria" header="Quantidade de acomodações por categoria" style="text-align: center;">
+            <p:pieChart model="#{dashboardMB.pieModel}"/>
+        </p:panel>
+
+            <p:panel id="reserva" header="Quantidade de Reservas por tipo de acomodação" style="text-align: center;">
+                <p:barChart model="#{dashboardMB.barModel}"/>
+            </p:panel>
+
+
         </p:panelGrid>
-
-
 
     </ui:define>
 
