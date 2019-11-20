@@ -29,6 +29,7 @@ public class CategoriaMB implements Serializable {
     private IBaseDao<Atributo> atributoDao;
     private List<Categoria> categoriasFiltro;
     private List<Atributo> atributosSelecionados;
+    private Integer quantidadeDoAtributo;
 
     @PostConstruct
     public void init() {
@@ -46,6 +47,7 @@ public class CategoriaMB implements Serializable {
 
     public void limpar() {
         categoria = new Categoria();
+        atributosSelecionados = new ArrayList<>();
     }
 
 
@@ -108,5 +110,13 @@ public class CategoriaMB implements Serializable {
 
     public void setAtributosSelecionados(List<Atributo> atributosSelecionados) {
         this.atributosSelecionados = atributosSelecionados;
+    }
+
+    public Integer getQuantidadeDoAtributo() {
+        return quantidadeDoAtributo;
+    }
+
+    public void setQuantidadeDoAtributo(Integer quantidadeDoAtributo) {
+        this.quantidadeDoAtributo = quantidadeDoAtributo;
     }
 }

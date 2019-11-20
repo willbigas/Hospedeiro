@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -52,6 +53,7 @@ public class CheckinMB implements Serializable {
 
     public void efetuarCheckin() {
         reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.OCUPADO);
+        reserva.setDataEntrada(new Date(System.currentTimeMillis()));
         reservaDao.alterar(reserva);
         atualizar();
         Mensagem.addMensagemInfo("checkinEfetuadoSucesso");

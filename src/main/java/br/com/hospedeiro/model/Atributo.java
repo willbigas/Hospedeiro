@@ -47,6 +47,14 @@ public class Atributo implements IBaseModel {
         this.valor = valor;
     }
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

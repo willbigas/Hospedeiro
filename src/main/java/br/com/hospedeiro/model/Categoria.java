@@ -28,7 +28,6 @@ public class Categoria implements IBaseModel {
     private Double valorDiaria;
 
 
-
     @Override
     public Integer getId() {
         return id;

@@ -6,27 +6,27 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Gerenciamento de Atributos</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.gerenciamentoDeAtributos']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Atributos</h2>
+        <h2>#{messages['lbl.gerenciamentoDeAtributos']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
 
         <h:form id="formCadastro">
             <div class="ui-fluid">
-                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
+                <p:panelGrid columns="4" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-3, ui-lg-1 , ui-lg-1"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoNome" value="Nome:"/>
+                    <p:outputLabel for="campoNome" value="#{messages['lbl.nome']}:"/>
                     <p:inputText
                             id="campoNome"
                             required="true"
                             requiredMessage="O campo Nome é obrigatório!"
                             value="#{atributoMB.atributo.nome}"
                             placeholder="Hidromassagem, Microondas, Cama Redonda"/>
-                    <p:outputLabel for="campoValor" value="Valor:"/>
+                    <p:outputLabel for="campoValor" value="#{messages['lbl.valor']}:"/>
                     <p:inputNumber
                             id="campoValor"
                             decimalSeparator=","
@@ -44,12 +44,12 @@
                             update="@form"
                             icon="fa fa-eraser"
                             action="#{atributoMB.limpar()}"
-                            value="Limpar"/>
+                            value="#{messages['lbl.limpar']}"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
                             action="#{atributoMB.salvar()}"
-                            value="Salvar"/>
+                            value="#{messages['lbl.salvar']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
@@ -96,7 +96,7 @@
                 </f:facet>
 
                 <p:column
-                        headerText="Nome"
+                        headerText="#{messages['lbl.nome']}"
                         filterBy="#{a.nome}"
                         filterMatchMode="contains"
                         sortBy="#{a.nome}">
@@ -105,7 +105,7 @@
 
 
                 <p:column
-                        headerText="Valor"
+                        headerText="#{messages['lbl.valor']}"
                         filterBy="#{a.valor}"
                         filterMatchMode="contains"
                         sortBy="#{a.valor}">
@@ -115,7 +115,16 @@
                 </p:column>
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.quantidade']}"
+                        filterBy="#{a.quantidade}"
+                        filterMatchMode="contains"
+                        sortBy="#{a.quantidade}">
+                    <h:outputText value="#{a.quantidade}">
+                    </h:outputText>
+                </p:column>
+
+                <p:column
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton

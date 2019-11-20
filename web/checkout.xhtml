@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Checkout</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.checkout']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2 style="text-align: center;">Efetuar Checkout</h2>
+        <h2 style="text-align: center;">#{messages['lbl.efetivarSaida']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -19,13 +19,13 @@
             <div class="ui-fluid">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-lg-1 , ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="comboReservas" value="Reserva: "/>
+                    <p:outputLabel for="comboReservas" value="#{messages['lbl.reserva']}: "/>
                     <p:selectOneMenu id="comboReservas" value="#{checkoutMB.reserva}"
                                    filter="true" filterMatchMode="contains">
                         <f:attribute name="collectionType" value="java.util.ArrayList" />
                         <f:selectItems value="#{checkoutMB.reservasOcupadas}" var="r" itemLabel="#{r.hospede.nome} [#{r.acomodacao.localizacao.numero}]"/>
                     </p:selectOneMenu>
-                    <p:outputLabel for="campoValorAdicional" value="Valor Adicional:"/>
+                    <p:outputLabel for="campoValorAdicional" value="#{messages['lbl.valorAdicional']}:"/>
                     <p:inputNumber
                             id="campoValorAdicional"
                             decimalSeparator=","
@@ -42,7 +42,7 @@
                             update="formCadastro comboReservas"
                             icon="fa fa-check"
                             action="#{checkoutMB.efetuarCheckout()}"
-                            value="Efetuar Checkout"/>
+                            value="#{messages['lbl.efetivarSaida']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>

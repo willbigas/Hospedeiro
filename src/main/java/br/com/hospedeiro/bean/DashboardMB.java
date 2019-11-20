@@ -89,8 +89,7 @@ public class DashboardMB implements Serializable {
         ChartData data = new ChartData();
 
         BarChartDataSet barDataSet = new BarChartDataSet();
-        barDataSet.setLabel("Reservas por categoria de acomodação");
-
+        barDataSet.setLabel("");
         List<Number> values = new ArrayList<>();
         for (int i = 0; i < acomodacoesPorCategoriaDTOS.size(); i++) {
             AcomodacoesPorCategoriaDTO umaAcomodacao = acomodacoesPorCategoriaDTOS.get(i);

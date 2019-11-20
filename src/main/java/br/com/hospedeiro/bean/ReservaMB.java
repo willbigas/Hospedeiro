@@ -103,6 +103,7 @@ public class ReservaMB implements Serializable {
         reserva.getValorTotal();
 
         if (reserva.getId() == null) {
+            reserva.setDataReserva(new Date(System.currentTimeMillis()));
             reservaDao.salvar(reserva);
             Mensagem.addMensagemInfo("reservaCadastroSucesso");
         } else {

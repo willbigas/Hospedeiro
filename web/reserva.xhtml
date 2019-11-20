@@ -146,6 +146,15 @@
                 </p:column>
 
                 <p:column
+                        headerText="#{messages['lbl.dataReserva']}"
+                        sortBy="#{r.dataReserva}">
+                    <h:outputText value="#{r.dataReserva}">
+                        <f:convertDateTime pattern="dd/MM/yyy hh:mm" timeZone="#{initParam.timezone}"/>
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column
                         headerText="#{messages['lbl.dataEntrada']}"
                         sortBy="#{r.dataEntrada}">
                     <h:outputText value="#{r.dataEntrada}">

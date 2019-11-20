@@ -6,7 +6,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Página Principal</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.inicio']}</ui:define>
 
     <ui:define name="conteudo">
 
@@ -16,11 +16,11 @@
 
 
         <p:panelGrid layout="grid" columns="4" columnClasses="ui-fluid ui-lg-6, ui-lg-6">
-            <p:panel id="categoria" header="Quantidade de acomodações por categoria" style="text-align: center;">
+            <p:panel id="categoria" header="#{messages['lbl.qtdDeAcomodacoesPorCategoria']}" style="text-align: center;">
             <p:pieChart model="#{dashboardMB.pieModel}"/>
         </p:panel>
 
-            <p:panel id="reserva" header="Quantidade de Reservas por tipo de acomodação" style="text-align: center;">
+            <p:panel id="reserva" header="#{messages['lbl.qtdDeReservasPorTipoDeAcomodacao']}" style="text-align: center;">
                 <p:barChart model="#{dashboardMB.barModel}"/>
             </p:panel>
 

@@ -17,6 +17,8 @@ public class Reserva implements IBaseModel {
     private Date dataEntrada;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataSaida;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataReserva;
     private Integer diasEmReserva;
     @OneToOne(cascade = CascadeType.MERGE)
     private Acomodacao acomodacao;
@@ -102,6 +104,14 @@ public class Reserva implements IBaseModel {
 
     public void setFinalizado(Boolean finalizado) {
         this.finalizado = finalizado;
+    }
+
+    public Date getDataReserva() {
+        return dataReserva;
+    }
+
+    public void setDataReserva(Date dataReserva) {
+        this.dataReserva = dataReserva;
     }
 
     @Override

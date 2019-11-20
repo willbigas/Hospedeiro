@@ -36,6 +36,8 @@
                             symbol="R$ "
                             value="#{categoriaMB.categoria.valorDiaria}"
                             placeholder="120,99"/>
+                </p:panelGrid>
+                <p:panelGrid columns="4" layout="grid" columnClasses="ui-lg-1, ui-lg-4 , ui-lg-1, ui-lg-4" styleClass="ui-panelgrid-blank ui-fluid">
                     <p:outputLabel for="campoDescricao" value="Descrição: "/>
                     <p:inputTextarea
                             id="campoDescricao"
@@ -48,20 +50,18 @@
                             requiredMessage="Numero deve ser preenchido!"
                             value="#{categoriaMB.categoria.descricao}" placeholder="Uma breve descrição da categoria aqui..."
                     />
-                    <br />
-                    <h:outputText id="display" />
                     <p:outputLabel for="campoAtributos" value="Atributos:"/>
                     <p:selectManyMenu id="campoAtributos"  value="#{categoriaMB.categoria.atributos}">
                         <f:attribute name="collectionType" value="java.util.ArrayList" />
                         <f:selectItem noSelectionOption="true" itemLabel="Selecione uma ou mais atributos"/>
-                        <f:selectItems var="atr" value="#{categoriaMB.atributos}" itemLabel="#{atr.nome}"/>
+                        <f:selectItems var="atr" value="#{categoriaMB.atributos}" itemLabel="[#{atr.nome}] - R$: #{atr.valor}"/>
                     </p:selectManyMenu>
                 </p:panelGrid>
             </div>
 
             <p:spacer height="10px"/>
             <p:toolbar>
-                <f:facet name="left">
+                <f:facet name="right">
                     <p:commandButton
                             type="reset"
                             update="@form"
@@ -190,6 +190,7 @@
                         onclick="PF('confirmDialog').hide(); return false"/>
             </p:confirmDialog>
         </h:form>
+
 
     </ui:define>
 

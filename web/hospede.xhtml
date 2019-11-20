@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Gerenciamento de Hospedes</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.gerenciamentoDeHospedes']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Hospedes</h2>
+        <h2>#{messages['lbl.gerenciamentoDeHospedes']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -27,14 +27,14 @@
                             requiredMessage="O campo CPF é obrigatório!"
                             value="#{hospedeMB.hospede.cpf}"
                             placeholder="000.000.000-00"/>
-                    <p:outputLabel for="nome" value="Nome: "/>
+                    <p:outputLabel for="nome" value="#{messages['lbl.nome']}: "/>
                     <p:inputText
                             id="nome"
                             required="true"
                             requiredMessage="Nome deve ser preenchido"
                             value="#{hospedeMB.hospede.nome}" placeholder="Maria da silva"
                     />
-                    <p:outputLabel for="idade" value="Idade:"/>
+                    <p:outputLabel for="idade" value="#{messages['lbl.idade']}:"/>
                     <p:inputText id="idade"
                                  value="#{hospedeMB.hospede.idade}"
                                  placeholder="21"/>
@@ -44,7 +44,7 @@
                             id="ddd"
                             value="#{hospedeMB.hospede.telefone.ddd}" placeholder="048"
                     />
-                    <p:outputLabel value="Numero:"/>
+                    <p:outputLabel value="#{messages['lbl.numero']}:"/>
                     <p:inputText
                             id="Numero"
                             value="#{hospedeMB.hospede.telefone.numero}" placeholder="30337442"
@@ -56,7 +56,7 @@
                              layout="grid"
                 >
                     <f:facet name="header">
-                        Dependentes do Hospede
+                       #{messages['lbl.dependentes']}
                     </f:facet>
                     <p:outputLabel for="cpfDependente" value="CPF:"/>
                     <p:inputMask
@@ -64,7 +64,7 @@
                             mask="999.999.999-99"
                             value="#{hospedeMB.dependente.cpf}" placeholder="000.000.000-00"
                     />
-                    <p:outputLabel for="nomeDependente" value="Nome:"/>
+                    <p:outputLabel for="nomeDependente" value="#{messages['lbl.nome']}:"/>
                     <p:inputText
                             id="nomeDependente"
                             value="#{hospedeMB.dependente.nome}" placeholder="Maria da silva..."
@@ -86,12 +86,12 @@
                             update="@form"
                             icon="fa fa-eraser"
                             action="#{hospedeMB.limpar()}"
-                            value="Limpar"/>
+                            value="#{messages['lbl.limpar']}"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
                             action="#{hospedeMB.salvar()}"
-                            value="Salvar"/>
+                            value="#{messages['lbl.salvar']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
@@ -146,7 +146,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Nome"
+                        headerText="#{messages['lbl.nome']}"
                         filterBy="#{h.nome}"
                         filterMatchMode="contains"
                         sortBy="#{h.nome}">
@@ -154,7 +154,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Idade"
+                        headerText="#{messages['lbl.idade']}"
                         filterBy="#{h.idade}"
                         filterMatchMode="lte"
                         styleClass="hospede-coluna-idade"
@@ -176,7 +176,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Telefone"
+                        headerText="#{messages['lbl.numero']}"
                         filterBy="#{h.telefone.numero}"
                         filterMatchMode="contains"
                         sortBy="#{h.telefone.numero}">
@@ -184,7 +184,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
@@ -250,13 +250,13 @@
                     </p:column>
 
                     <p:column
-                            headerText="NOME"
+                            headerText="#{messages['lbl.nome']}"
                             sortBy="#{d.nome}">
                         <h:outputText value="#{d.nome}"/>
                     </p:column>
 
                     <p:column
-                            headerText="Ações">
+                            headerText="#{messages['lbl.acoes']}">
                         <p:commandButton
                                 value="Remover"
                                 icon="fa fa-fw fa-remove"

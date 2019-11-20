@@ -15,6 +15,7 @@ import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean
@@ -58,6 +59,7 @@ public class CheckoutMB implements Serializable {
 
     public void efetuarCheckout() {
         reserva.getAcomodacao().setSituacaoAcomodacao(SituacaoAcomodacao.DISPONIVEL);
+        reserva.setDataSaida(new Date(System.currentTimeMillis()));
         reserva.setValorTotal(reserva.getValorTotal() + reserva.getValorAdicional());
         reserva.setFinalizado(true);
         vincularReservaAUmContratoDeRecebimento(reserva);
