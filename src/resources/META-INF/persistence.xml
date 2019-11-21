@@ -20,6 +20,7 @@
         <class>br.com.hospedeiro.model.ContratoRecebimento</class>
         <class>br.com.hospedeiro.model.ContratoPagamento</class>
         <class>br.com.hospedeiro.model.FormaPagamento</class>
+        <class>br.com.hospedeiro.model.Usuario</class>
 
 
         <!--#Mapeamento de classes -->

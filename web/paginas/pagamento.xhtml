@@ -1,41 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="WEB-INF/templates/layout.xhtml"
+<ui:composition template="../WEB-INF/templates/layout.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - #{messages['lbl.gerenciamentoDeAtributos']}</ui:define>
+    <ui:define name="titulo">Hospedeiro - Contratos de Pagamento</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>#{messages['lbl.gerenciamentoDeAtributos']}</h2>
+        <h2>Contratos de Pagamento</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
 
         <h:form id="formCadastro">
             <div class="ui-fluid">
-                <p:panelGrid columns="4" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-3, ui-lg-1 , ui-lg-1"
+                <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoNome" value="#{messages['lbl.nome']}:"/>
+                    <p:outputLabel for="campoNome" value="Nome:"/>
                     <p:inputText
-                            id="campoNome"
-                            required="true"
-                            requiredMessage="O campo Nome é obrigatório!"
-                            value="#{atributoMB.atributo.nome}"
-                            placeholder="Hidromassagem, Microondas, Cama Redonda"/>
-                    <p:outputLabel for="campoValor" value="#{messages['lbl.valor']}:"/>
-                    <p:inputNumber
-                            id="campoValor"
-                            decimalSeparator=","
-                            thousandSeparator="."
-                            symbol="R$ "
-                            value="#{atributoMB.atributo.valor}"
-                            placeholder="120,99"/>
+                        id="campoNome"
+                        required="true"
+                        requiredMessage="O nome da forma de pagamento é obrigatório!"
+                        value="#{formaPagamentoMB.formaPagamento.nome}"
+                        placeholder="DINHEIRO , BOLETO , CARTAO DE CREDITO"/>
                 </p:panelGrid>
             </div>
+
             <p:spacer height="10px"/>
             <p:toolbar>
                 <f:facet name="left">
@@ -43,23 +36,24 @@
                             type="reset"
                             update="@form"
                             icon="fa fa-eraser"
-                            action="#{atributoMB.limpar()}"
-                            value="#{messages['lbl.limpar']}"/>
+                            action="#{formaPagamentoMB.limpar()}"
+                            value="Limpar"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
-                            action="#{atributoMB.salvar()}"
-                            value="#{messages['lbl.salvar']}"/>
+                            action="#{formaPagamentoMB.salvar()}"
+                            value="Salvar"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
         <p:spacer height="10px"/>
 
 
+
         <h:form id="formDataTable">
             <p:dataTable
-                    id="tableAtributos"
-                    filteredValue="#{atributoMB.atributosFiltro}"
+                    id="tableFormaPagamento"
+                    filteredValue="#{formaPagamentoMB.formaPagamentoFiltro}"
                     paginator="true"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
@@ -67,80 +61,60 @@
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{atributoMB.atributos}"
-                    var="a">
+                    value="#{formaPagamentoMB.formaPagamentos}"
+                    var="f">
 
                 <f:facet name="{Exporters}">
                     <div class="tabela-exportacoes">
                         <h:commandLink>
                             <p:graphicImage library="img" name="excel.png" width="24"/>
-                            <p:dataExporter type="xlsx" target="tableAtributos" fileName="Atributos"/>
+                            <p:dataExporter type="xlsx" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="pdf.png" width="24"/>
-                            <p:dataExporter type="pdf" target="tableAtributos" fileName="Atributos"/>
+                            <p:dataExporter type="pdf" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tableAtributos" fileName="Atributos"/>
+                            <p:dataExporter type="csv" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
                         </h:commandLink>
 
                         <h:commandLink>
                             <p:graphicImage library="img" name="xml.png" width="24"/>
-                            <p:dataExporter type="xml" target="tableAtributos" fileName="Atributos"/>
-                        </h:commandLink>
+                            <p:dataExporter type="xml" target="tableFormaPagamento" fileName="Formas de Pagamento"/>
+                    </h:commandLink>
                     </div>
 
                 </f:facet>
 
                 <p:column
-                        headerText="#{messages['lbl.nome']}"
-                        filterBy="#{a.nome}"
+                        headerText="Nome"
+                        filterBy="#{f.nome}"
                         filterMatchMode="contains"
-                        sortBy="#{a.nome}">
-                    <h:outputText value="#{a.nome}"/>
-                </p:column>
-
-
-                <p:column
-                        headerText="#{messages['lbl.valor']}"
-                        filterBy="#{a.valor}"
-                        filterMatchMode="contains"
-                        sortBy="#{a.valor}">
-                    <h:outputText value="#{a.valor}">
-                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
-                    </h:outputText>
+                        sortBy="#{f.nome}">
+                    <h:outputText value="#{f.nome}"/>
                 </p:column>
 
                 <p:column
-                        headerText="#{messages['lbl.quantidade']}"
-                        filterBy="#{a.quantidade}"
-                        filterMatchMode="contains"
-                        sortBy="#{a.quantidade}">
-                    <h:outputText value="#{a.quantidade}">
-                    </h:outputText>
-                </p:column>
-
-                <p:column
-                        headerText="#{messages['lbl.acoes']}"
+                        headerText="Ações"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
                             update="formCadastro"
                             icon="fa fa-pencil">
                         <f:setPropertyActionListener
-                                target="#{atributoMB.atributo}"
-                                value="#{a}"/>
+                                target="#{formaPagamentoMB.formaPagamento}"
+                                value="#{f}"/>
                     </p:commandButton>
                     <p:commandButton
                             update="formDataTable:confirmDialog"
                             oncomplete="PF('confirmDialog').show();"
                             icon="fa fa-trash">
                         <f:setPropertyActionListener
-                                target="#{atributoMB.atributo}"
-                                value="#{a}"/>
+                                target="#{formaPagamentoMB.formaPagamento}"
+                                value="#{f}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
@@ -148,7 +122,7 @@
             <p:confirmDialog
                     id="confirmDialog"
                     header="Atenção!"
-                    message="Deseja realmente excluir este Atributo? #{atributoMB.atributo.nome}"
+                    message="Deseja excluir #{formaPagamentoMB.formaPagamento.nome}?"
                     widgetVar="confirmDialog"
                     showEffect="fade"
                     hideEffect="fade"
@@ -158,7 +132,7 @@
                         value="Sim"
                         icon="fa fa-check"
                         update="@form"
-                        action="#{atributoMB.remover}"
+                        action="#{formaPagamentoMB.remover}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button

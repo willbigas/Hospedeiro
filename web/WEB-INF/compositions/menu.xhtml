@@ -11,24 +11,24 @@
 
     <h:form>
         <p:menubar>
-            <p:menuitem value="#{messages['lbl.inicio']}" outcome="/index.html" icon="fa fa-home"/>
+            <p:menuitem value="#{messages['lbl.inicio']}" outcome="/paginas/index.html" icon="fa fa-home"/>
             <p:submenu label="#{messages['lbl.reservas']}" icon="fa fa-calendar">
-                <p:menuitem value="#{messages['lbl.cadastro']}" outcome="/reserva.xhtml" icon="fa fa-plus"/>
-                <p:menuitem value="#{messages['lbl.checkin']}" outcome="/checkin.xhtml" icon="fa fa-thumbs-o-up"/>
-                <p:menuitem value="#{messages['lbl.checkout']}" outcome="/checkout.xhtml" icon="fa fa-thumbs-o-down"/>
+                <p:menuitem value="#{messages['lbl.cadastro']}" outcome="/paginas/reserva.xhtml" icon="fa fa-plus"/>
+                <p:menuitem value="#{messages['lbl.checkin']}" outcome="/paginas/checkin.xhtml" icon="fa fa-thumbs-o-up"/>
+                <p:menuitem value="#{messages['lbl.checkout']}" outcome="/paginas/checkout.xhtml" icon="fa fa-thumbs-o-down"/>
         </p:submenu>
-            <p:menuitem value="#{messages['lbl.hospedes']}" outcome="/hospede.xhtml" icon="fa fa-users"/>
+            <p:menuitem value="#{messages['lbl.hospedes']}" outcome="/paginas/hospede.xhtml" icon="fa fa-users"/>
             <p:submenu label="#{messages['lbl.acomodacoes']}" icon="fa fa-bed">
-                <p:menuitem value="#{messages['lbl.cadastro']}" outcome="/acomodacao.xhtml" icon="fa fa-plus"/>
-                <p:menuitem value="#{messages['lbl.tiposAcomodacoes']}" outcome="/categoria.xhtml" icon="fa fa-bars"/>
-                <p:menuitem value="#{messages['lbl.atributos']}" outcome="/atributo.xhtml" icon="fa fa-list-alt"/>
+                <p:menuitem value="#{messages['lbl.cadastro']}" outcome="/paginas/acomodacao.xhtml" icon="fa fa-plus"/>
+                <p:menuitem value="#{messages['lbl.tiposAcomodacoes']}" outcome="/paginas/categoria.xhtml" icon="fa fa-bars"/>
+                <p:menuitem value="#{messages['lbl.atributos']}" outcome="/paginas/atributo.xhtml" icon="fa fa-list-alt"/>
             </p:submenu>
-            <p:submenu label="#{messages['lbl.financeiro']}" outcome="/fornecedor.xhtml" icon="fa fa-credit-card">
-                <p:menuitem value="#{messages['lbl.recebimento']}" outcome="/recebimento.xhtml" icon="fa fa-money"/>
-                <p:menuitem value="#{messages['lbl.pagamento']}" outcome="/pagamento.xhtml" icon="fa fa-calculator"/>
-                <p:menuitem value="#{messages['lbl.formasPagamento']}" outcome="/formaPagamento.xhtml" icon="fa fa-cc-visa"/>
+            <p:submenu label="#{messages['lbl.financeiro']}" outcome="/paginas/fornecedor.xhtml" icon="fa fa-credit-card">
+                <p:menuitem value="#{messages['lbl.recebimento']}" outcome="/paginas/recebimento.xhtml" icon="fa fa-money"/>
+                <p:menuitem value="#{messages['lbl.pagamento']}" outcome="/paginas/pagamento.xhtml" icon="fa fa-calculator"/>
+                <p:menuitem value="#{messages['lbl.formasPagamento']}" outcome="/paginas/formaPagamento.xhtml" icon="fa fa-cc-visa"/>
             </p:submenu>
-            <p:menuitem value="#{messages['lbl.fornecedores']}" outcome="/fornecedor.xhtml" icon="fa fa-building"/>
+            <p:menuitem value="#{messages['lbl.fornecedores']}" outcome="/paginas/fornecedor.xhtml" icon="fa fa-building"/>
             <f:facet name="options">
                 <h:commandButton
                         styleClass="bandeira-idioma"
@@ -48,7 +48,7 @@
                             value="pt_BR"/>
 
                 </h:commandButton>
-                <p:commandButton type="button" value="#{messages['lbl.sair']}" icon="fa fa-sign-out"/>
+                <p:commandButton action="#{loginMB.logout}" value="#{messages['lbl.sair']}" icon="fa fa-sign-out"/>
             </f:facet>
         </p:menubar>
     </h:form>
