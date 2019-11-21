@@ -98,7 +98,8 @@ public class HospedeMB implements Serializable {
         try {
             dependenteDao.excluir(dependente);
             Mensagem.addMensagemInfo("dependenteRemoverSucesso");
-            dependente = null;
+            hospede.getDependentes().remove(dependente);
+            dependente = new Dependente();
         }catch (Exception e) {
             e.printStackTrace();
         }

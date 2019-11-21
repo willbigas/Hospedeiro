@@ -51,32 +51,6 @@
                     />
                 </p:panelGrid>
 
-                <p:panelGrid columns="6"
-                             columnClasses="ui-lg-1, ui-lg-2, ui-lg-1, ui-lg-3 , ui-lg-1 , ui-lg-1"
-                             layout="grid"
-                >
-                    <f:facet name="header">
-                       #{messages['lbl.dependentes']}
-                    </f:facet>
-                    <p:outputLabel for="cpfDependente" value="CPF:"/>
-                    <p:inputMask
-                            id="cpfDependente"
-                            mask="999.999.999-99"
-                            value="#{hospedeMB.dependente.cpf}" placeholder="000.000.000-00"
-                    />
-                    <p:outputLabel for="nomeDependente" value="#{messages['lbl.nome']}:"/>
-                    <p:inputText
-                            id="nomeDependente"
-                            value="#{hospedeMB.dependente.nome}" placeholder="Maria da silva..."
-                    />
-
-                    <p:commandButton
-                            update="formDataTable formCadastro"
-                            icon="fa fa-plus"
-                            action="#{hospedeMB.adicionarDependente()}"
-                    />
-                </p:panelGrid>
-
             </div>
             <p:spacer height="10px"/>
             <p:toolbar>
@@ -188,7 +162,7 @@
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
-                            update="formDataTable:dialogFichaHospede"
+                            update="formDialogFichaHospede dialogFichaHospede"
                             oncomplete="PF('dialogFichaHospede').show();"
                             icon="fa fa-list-alt">
                         <f:setPropertyActionListener
@@ -236,8 +210,39 @@
                         onclick="PF('confirmDialog').hide(); return false"/>
             </p:confirmDialog>
 
-            <p:dialog id="dialogFichaHospede" header="Dependentes de #{hospedeMB.hospede.nome}"
-                      widgetVar="dialogFichaHospede" modal="true" height="100" width="600">
+
+        </h:form>
+
+
+        <p:dialog id="dialogFichaHospede" header="Dependentes de #{hospedeMB.hospede.nome}"
+                  widgetVar="dialogFichaHospede" modal="true" height="600" width="1000">
+
+            <h:form id="formDialogFichaHospede">
+
+                <p:panelGrid columns="5"
+                             columnClasses="ui-lg-1, ui-lg-2, ui-lg-1, ui-lg-4, ui-lg-2"
+                             layout="grid"
+                             styleClass="ui-fluid">
+                    <p:outputLabel for="cpfDependente" value="CPF:"/>
+                    <p:inputMask
+                            id="cpfDependente"
+                            mask="999.999.999-99"
+                            value="#{hospedeMB.dependente.cpf}" placeholder="000.000.000-00"
+                    />
+                    <p:outputLabel for="nomeDependente" value="#{messages['lbl.nome']}:"/>
+                    <p:inputText
+                            id="nomeDependente"
+                            value="#{hospedeMB.dependente.nome}" placeholder="Maria da silva..."
+                    />
+                    <p:commandButton
+                            update="@form formTabelaDependentes"
+                            icon="fa fa-plus"
+                            action="#{hospedeMB.adicionarDependente()}"
+                    />
+                </p:panelGrid>
+            </h:form>
+
+            <h:form id="formTabelaDependentes">
                 <p:dataTable
                         id="dataTableDependentes"
                         value="#{hospedeMB.hospede.dependentes}"
@@ -270,10 +275,8 @@
                     </p:column>
 
                 </p:dataTable>
-            </p:dialog>
-
-
-        </h:form>
+            </h:form>
+        </p:dialog>
 
 
     </ui:define>

@@ -6,14 +6,18 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet library="css" name="login.css"/>
     <title>Hospedeiro | Acesso ao sistema</title>
 
 </h:head>
 <h:body>
 
+    <h1 class="logo">Hospedeiro</h1>
+    <h3>#{messages['lbl.sistemaParaHospedagens']}</h3>
+
     <h:form>
         <p:growl id="mensagemLogin" life="10000"/>
-        <p:dialog header="Login" visible="true" draggable="false" resizable="false" closable="false" responsive="true" modal="true">
+        <p:dialog header="Login" visible="true" draggable="false" resizable="false" closable="false" responsive="true">
             <h:panelGrid columns="2" cellpadding="5">
                 <p:outputLabel for="email" value="E-mail:"/>
                 <p:inputText id="email" value="#{loginMB.usuario.email}"/>
