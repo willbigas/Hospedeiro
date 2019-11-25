@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Gerenciamento de Usuários</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.gerenciamentoDeUsuarios']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Usuários</h2>
+        <h2>#{messages['lbl.gerenciamentoDeUsuarios']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -19,7 +19,7 @@
             <div class="ui-fluid">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoNome" value="Nome:"/>
+                    <p:outputLabel for="campoNome" value="#{messages['lbl.nome']}:"/>
                     <p:inputText
                             id="campoNome"
                             required="true"
@@ -27,7 +27,7 @@
                             value="#{usuarioMB.usuario.nome}"
                     />
 
-                    <p:outputLabel for="campoEmail" value="Email:"/>
+                    <p:outputLabel for="campoEmail" value="#{messages['lbl.email']}:"/>
                     <p:inputText
                             id="campoEmail"
                             required="true"
@@ -35,7 +35,7 @@
                             requiredMessage="O campo Email é obrigatório!"
                             value="#{usuarioMB.usuario.email}"
                     />
-                    <p:outputLabel for="campoSenha" value="Senha:"/>
+                    <p:outputLabel for="campoSenha" value="#{messages['lbl.senha']}:"/>
                     <p:password
                             id="campoSenha"
                             feedback="true"
@@ -43,7 +43,7 @@
                             value="#{usuarioMB.usuario.senha}"
                     />
                     <p:outputLabel for="campoAtivo"
-                                   value="Ativo:"/>
+                                   value="#{messages['lbl.ativo']}:"/>
                     <p:selectBooleanCheckbox
                             id="campoAtivo"
                             value="#{usuarioMB.usuario.ativo}"
@@ -59,12 +59,12 @@
                             update="@form"
                             icon="fa fa-eraser"
                             action="#{usuarioMB.limpar()}"
-                            value="Limpar"/>
+                            value="#{messages['lbl.limpar']}"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
                             action="#{usuarioMB.salvar()}"
-                            value="Salvar"/>
+                            value="#{messages['lbl.salvar']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
@@ -111,7 +111,7 @@
                 </f:facet>
 
                 <p:column
-                        headerText="Nome"
+                        headerText="#{messages['lbl.nome']}"
                         filterBy="#{us.nome}"
                         filterMatchMode="contains"
                         sortBy="#{us.nome}">
@@ -119,7 +119,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Email"
+                        headerText="#{messages['lbl.email']}"
                         filterBy="#{us.email}"
                         filterMatchMode="contains"
                         sortBy="#{us.email}">
@@ -127,7 +127,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Ativo"
+                        headerText="#{messages['lbl.ativo']}"
                         filterBy="#{us.ativo}"
                         filterMatchMode="contains"
                         sortBy="#{us.ativo}">
@@ -136,7 +136,7 @@
 
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton
@@ -168,14 +168,14 @@
                     closable="false"
                     closeOnEscape="true">
                 <p:commandButton
-                        value="Sim"
+                        value="#{messages['lbl.sim']}"
                         icon="fa fa-check"
                         update="@form"
                         action="#{usuarioMB.remover}"
                         oncomplete="PF('confirmDialog').hide()">
                 </p:commandButton>
                 <p:button
-                        value="Não"
+                        value="#{messages['lbl.nao']}"
                         icon="fa fa-times"
                         onclick="PF('confirmDialog').hide(); return false"/>
             </p:confirmDialog>
