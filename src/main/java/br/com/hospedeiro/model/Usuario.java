@@ -2,10 +2,7 @@ package br.com.hospedeiro.model;
 
 import br.com.hospedeiro.interfaces.IBaseModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,8 +11,15 @@ public class Usuario implements IBaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String nome;
     private String email;
     private String senha;
+    @Column(columnDefinition = "Boolean")
+    private Boolean ativo;
+
+    public Usuario() {
+        ativo = false;
+    }
 
     @Override
     public Integer getId() {
@@ -45,6 +49,14 @@ public class Usuario implements IBaseModel {
         this.senha = senha;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -56,5 +68,13 @@ public class Usuario implements IBaseModel {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }
