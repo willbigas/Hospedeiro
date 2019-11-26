@@ -52,7 +52,6 @@ public class HospedeMB implements Serializable {
 
 
     public void salvar() {
-
         if (hospede.getId() == null) {
             for (int i = 0; i < hospedes.size(); i++) {
                 Hospede hospedeBuscado = hospedes.get(i);

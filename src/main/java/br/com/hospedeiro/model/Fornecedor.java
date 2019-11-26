@@ -17,6 +17,8 @@ public class Fornecedor implements IBaseModel {
     private String codigo;
     private String razaoSocial;
     private String nomeFantasia;
+    private String ddd;
+    private String telefone;
 
     @Override
     public Integer getId() {
@@ -50,6 +52,22 @@ public class Fornecedor implements IBaseModel {
 
     public void setNomeFantasia(String nomeFantasia) {
         this.nomeFantasia = nomeFantasia;
+    }
+
+    public String getDdd() {
+        return ddd;
+    }
+
+    public void setDdd(String ddd) {
+        this.ddd = ddd;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     @Override

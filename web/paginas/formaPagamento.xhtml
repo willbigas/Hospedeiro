@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Gerenciamento de Formas de pagamento</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.gerenciamentoDasFormasDePagamento']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento das Formas de pagamento</h2>
+        <h2>#{messages['lbl.gerenciamentoDasFormasDePagamento']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -19,7 +19,7 @@
             <div class="ui-fluid">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-g-4 ui-md-3 ui-lg-1 , ui-g-8 ui-md-9 ui-lg-11"
                              styleClass="ui-panelgrid-blank">
-                    <p:outputLabel for="campoNome" value="Nome:"/>
+                    <p:outputLabel for="campoNome" value="#{messages['lbl.nome']}:"/>
                     <p:inputText
                         id="campoNome"
                         required="true"
@@ -37,12 +37,12 @@
                             update="@form"
                             icon="fa fa-eraser"
                             action="#{formaPagamentoMB.limpar()}"
-                            value="Limpar"/>
+                            value="#{messages['lbl.limpar']}"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
                             action="#{formaPagamentoMB.salvar()}"
-                            value="Salvar"/>
+                            value="#{messages['lbl.salvar']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
@@ -90,7 +90,7 @@
                 </f:facet>
 
                 <p:column
-                        headerText="Nome"
+                        headerText="#{messages['lbl.nome']}"
                         filterBy="#{f.nome}"
                         filterMatchMode="contains"
                         sortBy="#{f.nome}">
@@ -98,7 +98,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton

@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Hospedeiro - Gerenciamento de Fornecedores</ui:define>
+    <ui:define name="titulo">Hospedeiro - #{messages['lbl.gerenciamentoDeFornecedores']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Gerenciamento de Fornecedores</h2>
+        <h2>#{messages['lbl.gerenciamentoDeFornecedores']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -40,6 +40,19 @@
                             value="#{fornecedorMB.fornecedor.nomeFantasia}" placeholder="Raimunda Publicidade"
                     />
                 </p:panelGrid>
+                <p:panelGrid layout="grid" columns="4" columnClasses="ui-lg-1 , ui-lg-1, ui-lg-1 , ui-lg-1" styleClass="ui-panelgrid-blank">
+                    <p:outputLabel for="campoDDD" value="DDD:"/>
+                    <p:inputText
+                            id="campoDDD"
+                            value="#{fornecedorMB.fornecedor.ddd}"
+                    />
+                    <p:outputLabel for="campoTelefone" value="Telefone:"/>
+                    <p:inputMask
+                            id="campoTelefone"
+                            mask="9999-9999"
+                            value="#{fornecedorMB.fornecedor.telefone}"
+                    />
+                </p:panelGrid>
             </div>
             <p:spacer height="10px"/>
             <p:toolbar>
@@ -49,12 +62,12 @@
                             update="@form"
                             icon="fa fa-eraser"
                             action="#{fornecedorMB.limpar()}"
-                            value="Limpar"/>
+                            value="#{messages['lbl.limpar']}"/>
                     <p:commandButton
                             update="formDataTable formCadastro"
                             icon="fa fa-save"
                             action="#{fornecedorMB.salvar()}"
-                            value="Salvar"/>
+                            value="#{messages['lbl.salvar']}"/>
                 </f:facet>
             </p:toolbar>
         </h:form>
@@ -108,7 +121,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Razão Social"
+                        headerText="#{messages['lbl.razaoSocial']}"
                         filterBy="#{f.razaoSocial}"
                         filterMatchMode="contains"
                         sortBy="#{f.razaoSocial}">
@@ -116,15 +129,22 @@
                 </p:column>
 
                 <p:column
-                        headerText="Nome Fantasia"
+                        headerText="#{messages['lbl.nomeFantasia']}"
                         filterBy="#{f.nomeFantasia}"
                         filterMatchMode="contains"
                         sortBy="#{f.nomeFantasia}">
                     <h:outputText value="#{f.nomeFantasia}"/>
                 </p:column>
+                <p:column
+                        headerText="#{messages['lbl.numero']}"
+                        filterBy="#{f.telefone}"
+                        filterMatchMode="contains"
+                        sortBy="#{f.telefone}">
+                    <h:outputText value="(#{f.ddd}) #{f.telefone}"/>
+                </p:column>
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton

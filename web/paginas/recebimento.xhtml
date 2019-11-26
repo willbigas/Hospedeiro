@@ -6,11 +6,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="titulo">Gerenciamento de Contratos de recebimento</ui:define>
+    <ui:define name="titulo">Hospedeiro | #{messages['lbl.contratosDeRecebimento']}</ui:define>
 
     <ui:define name="conteudo">
 
-        <h2>Contratos de Recebimento</h2>
+        <h2>#{messages['lbl.contratosDeRecebimento']}</h2>
         <p:growl sticky="true">
             <p:autoUpdate/>
         </p:growl>
@@ -68,7 +68,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Data"
+                        headerText="#{messages['lbl.data']}"
                         filterBy="#{r.dataCadastro}"
                         filterMatchMode="contains"
                         sortBy="#{r.dataCadastro}">
@@ -78,7 +78,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Cliente"
+                        headerText="#{messages['lbl.nome']}"
                         filterBy="#{r.reserva.hospede.nome}"
                         filterMatchMode="contains"
                         sortBy="#{r.reserva.hospede.nome}">
@@ -87,7 +87,7 @@
 
 
                 <p:column
-                        headerText="Valor Recebido"
+                        headerText="#{messages['lbl.valorRecebido']}"
                         filterBy="#{r.valorRecebido}"
                         filterMatchMode="contains"
                         sortBy="#{r.valorRecebido}">
@@ -95,7 +95,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Valor Total"
+                        headerText="#{messages['lbl.valorTotal']}"
                         filterBy="#{r.valorTotal}"
                         filterMatchMode="contains"
                         sortBy="#{r.valorTotal}">
@@ -105,7 +105,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Situacao"
+                        headerText="#{messages['lbl.situacao']}"
                         filterBy="#{r.situacao}"
                         filterMatchMode="contains"
                         sortBy="#{r.situacao}">
@@ -113,7 +113,7 @@
                 </p:column>
 
                 <p:column
-                        headerText="Ações"
+                        headerText="#{messages['lbl.acoes']}"
                         styleClass="hospede-coluna-acoes"
                         exportable="false">
                     <p:commandButton

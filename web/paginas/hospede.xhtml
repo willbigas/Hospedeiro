@@ -215,7 +215,7 @@
 
 
         <p:dialog id="dialogFichaHospede" header="Dependentes de #{hospedeMB.hospede.nome}"
-                  widgetVar="dialogFichaHospede" modal="true" height="600" width="1000">
+                  widgetVar="dialogFichaHospede" modal="true" height="600" width="1000" onHide="#{hospedeMB.limpar()}">
 
             <h:form id="formDialogFichaHospede">
 
