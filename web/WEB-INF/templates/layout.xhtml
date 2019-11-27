@@ -5,21 +5,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <title><ui:insert name="titulo">Titulo Padrão</ui:insert></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <h:outputStylesheet library="css" name="style.css"/>
-    <h:outputScript library="js" name="locale-primefaces.js"/>
-</h:head>
-<h:body>
-    <h1 class="logo"><h:graphicImage library="img" height="130" width="120" name="hotel.png"/></h1>
-    <h1 class="logo">Hospedeiro</h1>
-    <h3 class="logo">#{messages['lbl.sistemaParaHospedagens']}</h3>
-    <h4 class="logo">#{loginMB.usuarioLogado.nome}</h4>
-    <ui:include src="../compositions/menu.xhtml"/>
-    <ui:insert name="conteudo"/>
+<f:view locale="#{idiomaMB.locale}">
+    <h:head>
+        <title><ui:insert name="titulo">Titulo Padrão</ui:insert></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <h:outputScript library="js" name="locale-primefaces.js"/>
+    </h:head>
+    <h:body>
+        <h1 class="logo"><h:graphicImage library="img" height="130" width="120" name="hotel.png"/></h1>
+        <h1 class="logo">Hospedeiro</h1>
+        <h3 class="logo">#{messages['lbl.sistemaParaHospedagens']}</h3>
+        <h4 class="logo">#{loginMB.usuarioLogado.nome}</h4>
+        <ui:include src="../compositions/menu.xhtml"/>
+        <ui:insert name="conteudo"/>
 
-</h:body>
+    </h:body>
+
+</f:view>
 
 
 </html>
