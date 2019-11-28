@@ -1,6 +1,8 @@
 package br.com.hospedeiro.bean;
 
 import br.com.hospedeiro.dao.UsuarioDao;
+import br.com.hospedeiro.exception.UsuarioInativadoException;
+import br.com.hospedeiro.exception.UsuarioNaoEncontradoException;
 import br.com.hospedeiro.model.Usuario;
 import br.com.hospedeiro.service.UsuarioService;
 import br.com.hospedeiro.util.Mensagem;
@@ -27,20 +29,17 @@ public class LoginMB implements Serializable {
     }
 
     public String login() {
-        usuarioLogado = usuarioDao.verificaLogin(usuario.getEmail(), usuario.getSenha());
 
-        if (usuarioLogado == null) {
+        try {
+            usuarioService.verificaLogin(usuario.getEmail(), usuario.getSenha());
+        } catch (UsuarioNaoEncontradoException ex) {
             Mensagem.addMensagemError("usuarioOuSenhaInvalidos");
             return "/login.xhtml";
-        }
-
-        if (!usuarioService.verificaSeUsuarioEstaAtivo(usuarioLogado)) {
+        } catch (UsuarioInativadoException ext) {
             Mensagem.addMensagemWarn("usuarioInativadoNoBanco");
             return "/login.xhtml";
         }
 
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-        session.setAttribute("usuarioLogado", usuarioLogado);
         return "/paginas/index.xhtml?faces-redirect=true";
     }
 
