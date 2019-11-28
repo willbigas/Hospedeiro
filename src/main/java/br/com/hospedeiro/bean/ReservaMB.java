@@ -4,10 +4,12 @@ import br.com.hospedeiro.dao.AcomodacaoDao;
 import br.com.hospedeiro.dao.HospedeDao;
 import br.com.hospedeiro.dao.ReservaDao;
 import br.com.hospedeiro.interfaces.IBaseDao;
+import br.com.hospedeiro.lazy.model.ReservaLazyModel;
 import br.com.hospedeiro.model.*;
 import br.com.hospedeiro.model.enums.SituacaoAcomodacao;
 import br.com.hospedeiro.util.Mensagem;
 import br.com.hospedeiro.util.UtilDate;
+import org.primefaces.model.LazyDataModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +18,6 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,12 +30,13 @@ public class ReservaMB implements Serializable {
     private List<Acomodacao> acomodacaos;
     private List<Acomodacao> acomodacoesDisponiveis;
     private List<Hospede> hospedes;
-    private List<Reserva> reservas;
     private List<Atributo> atributos;
-    private IBaseDao<Reserva> reservaDao;
+    private ReservaDao reservaDao;
     private IBaseDao<Acomodacao> acomodacaoDao;
     private IBaseDao<Hospede> hospedeDao;
     private List<Reserva> reservasFiltro;
+    private LazyDataModel<Reserva> reservasModel;
+    private List<Reserva> reservas;
 
     private final int DIA_ENTRADA = 1;
 
@@ -44,9 +46,8 @@ public class ReservaMB implements Serializable {
         reservaDao = new ReservaDao();
         acomodacaoDao = new AcomodacaoDao();
         hospedeDao = new HospedeDao();
-        reservas = new ArrayList<>();
         atributos = new ArrayList<>();
-
+        reservas = new ArrayList<>();
         acomodacoesDisponiveis = new ArrayList<>();
         acomodacaos = new ArrayList<>();
         hospedes = new ArrayList<>();
@@ -54,15 +55,9 @@ public class ReservaMB implements Serializable {
     }
 
     public void atualizar() {
-        reservas = reservaDao.buscarTodos();
+        reservasModel = new ReservaLazyModel(reservaDao);
         acomodacaos = acomodacaoDao.buscarTodos();
         hospedes = hospedeDao.buscarTodos();
-        for (int i = 0; i < reservas.size(); i++) {
-            Reserva reserva =  reservas.get(i);
-            if (reserva.getFinalizado()) {
-                reservas.remove(reserva);
-            }
-        }
         acomodacoesDisponiveis = new ArrayList<>();
         for (int i = 0; i < acomodacaos.size(); i++) {
             Acomodacao acomodacaoBuscada =  acomodacaos.get(i);
@@ -155,12 +150,12 @@ public class ReservaMB implements Serializable {
         this.reserva = reserva;
     }
 
-    public List<Reserva> getReservas() {
-        return reservas;
+    public LazyDataModel<Reserva> getReservasModel() {
+        return reservasModel;
     }
 
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
+    public void setReservasModel(LazyDataModel<Reserva> reservasModel) {
+        this.reservasModel = reservasModel;
     }
 
     public List<Reserva> getReservasFiltro() {

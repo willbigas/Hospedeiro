@@ -92,10 +92,11 @@
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
                     rowsPerPageTemplate="5,10,15"
                     paginatorPosition="bottom"
+                    lazy="true"
                     rows="5"
                     reflow="true"
                     widgetVar="tabela-principal"
-                    value="#{reservaMB.reservas}"
+                    value="#{reservaMB.reservasModel}"
                     var="r">
 
                 <f:facet name="{Exporters}">
@@ -130,8 +131,6 @@
                 <p:column
                         headerText="#{messages['lbl.hospede']}"
                         styleClass="reserva-coluna-cp"
-                        filterBy="#{r.hospede.nome}"
-                        filterMatchMode="contains"
                         sortBy="#{r.hospede.nome}">
                     <h:outputText value="#{r.hospede.nome}"/>
                 </p:column>
@@ -139,8 +138,6 @@
                 <p:column
                         headerText="#{messages['lbl.numeroAcomodacao']}"
                         styleClass="reserva-coluna-acomodacao"
-                        filterBy="#{r.acomodacao.localizacao.numero}"
-                        filterMatchMode="contains"
                         sortBy="#{r.acomodacao.localizacao.numero}">
                     <h:outputText value="#{r.acomodacao.localizacao.numero}"/>
                 </p:column>
@@ -172,8 +169,6 @@
 
                 <p:column
                         headerText="#{messages['lbl.valorTotal']}"
-                        filterBy="#{r.valorTotal}"
-                        filterMatchMode="contains"
                         sortBy="#{r.valorTotal}">
                     <h:outputText value="#{r.valorTotal}">
                         <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
@@ -182,16 +177,7 @@
 
                 <p:column
                         headerText="#{messages['lbl.finalizado']}"
-                        filterBy="#{r.finalizado}"
-                        filterMatchMode="equals">
-                    <f:facet name="filter">
-                        <p:selectOneButton onchange="PF('tabela-principal').filter()" styleClass="custom-filter">
-                            <f:converter converterId="javax.faces.Boolean" />
-                            <f:selectItem itemLabel="#{messages['lbl.todos']}" itemValue="" />
-                            <f:selectItem itemLabel="#{messages['lbl.finalizado']}" itemValue="true" />
-                            <f:selectItem itemLabel="#{messages['lbl.pendente']}" itemValue="false" />
-                        </p:selectOneButton>
-                    </f:facet>
+                        filterMatchMode="contains">
                     <h:outputText value="#{r.finalizado ? 'Finalizado': 'Pendente'}" />
                 </p:column>
 
