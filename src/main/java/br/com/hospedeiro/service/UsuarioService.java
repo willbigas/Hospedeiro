@@ -39,20 +39,6 @@ public class UsuarioService {
     }
 
 
-    private boolean verificaSeUsuarioExisteNoBanco(Usuario usuario) {
-        boolean existe = false;
-
-        List<Usuario> usuariosDoBanco = usuarioDao.buscarTodos();
-        for (int i = 0; i < usuariosDoBanco.size(); i++) {
-            Usuario umUsuarioDoBanco = usuariosDoBanco.get(i);
-            if (umUsuarioDoBanco.getEmail().equalsIgnoreCase(usuario.getEmail())) {
-                existe = true;
-            }
-        }
-        return existe;
-    }
-
-
     /**
      * Verifica se o usuario está ativo, por padrão todos estão ativos
      *
@@ -65,5 +51,19 @@ public class UsuarioService {
             return usuarioDoBanco.getAtivo();
         }
         return true;
+    }
+
+
+    public boolean verificaSeUsuarioExisteNoBanco(Usuario usuario) {
+        boolean existe = false;
+
+        List<Usuario> usuariosDoBanco = usuarioDao.buscarTodos();
+        for (int i = 0; i < usuariosDoBanco.size(); i++) {
+            Usuario umUsuarioDoBanco = usuariosDoBanco.get(i);
+            if (umUsuarioDoBanco.getEmail().equalsIgnoreCase(usuario.getEmail())) {
+                existe = true;
+            }
+        }
+        return existe;
     }
 }
